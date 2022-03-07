@@ -1,0 +1,99 @@
+:root{
+    --background-color: #FFFFFF;
+    --edge-margin: 50px;
+    --text-color: #1D1F22;
+}
+
+.Header{
+    height: 80px;
+    width: 100%;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    flex-direction: row;
+    background-color: var(--background-color);
+    box-sizing: border-box; 
+    user-select: none
+
+}
+.Header .Categories{
+    display: flex;
+    flex-direction: row;
+    margin-left: var(--edge-margin);
+}
+
+.Header .Logo{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.Header .Logo-Image{
+    height: 40px;
+    width: 40px;
+}
+
+
+.Header .Options{    
+    margin-right: var(--edge-margin);
+    display: flex;
+    align-items:center;
+    justify-content: end;
+}
+
+.Header .Options .Options-Prices{
+    width: 30px;
+    height: 100%;
+    
+}
+
+.Header .Options .Options-Prices .Options-Prices-btn{
+    background-color: transparent;
+    border: 0;
+    width: 100%;
+    height: 100%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+}
+
+.Header .Options .Options-Prices-btn-Label{
+font-family: Raleway;
+font-style: normal;
+font-weight: 500;
+font-size: 18px;
+line-height: 160%;
+color: var(--text-color);
+}
+
+.Header .Options .Options-Prices-btn-Indicator{
+    height: 20px;
+    width: 20px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.Header .Options .Options-Prices-btn-Indicator-Arrow{
+    height: 6px;
+    width: 10px;
+}
+
+.Header .Options .Options-Cart{
+    width: 30px;
+    height: 100%;
+    margin-left: 10px;
+}
+
+.Header .Options .Options-Cart-btn{
+    height: 100%;
+    width: 100%;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+.Header .Options .Options-Cart-btn .Options-Cart-btn-Indicator{
+    height: 20px;
+    width: 18px;
+}

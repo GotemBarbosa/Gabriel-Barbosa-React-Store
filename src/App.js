@@ -1,11 +1,17 @@
 import React from 'react';
-import RoutesConfig from './routes';
+
+import RoutesConfig from './routesConfig';
+import Header from './component/header';
+import './global.css'
 
 
 class App extends React.Component{
     render(){
         return(
-        <RoutesConfig/>
+            <div className='App'>
+                <Header/>
+                <RoutesConfig/>
+            </div>
         )
     }
 }

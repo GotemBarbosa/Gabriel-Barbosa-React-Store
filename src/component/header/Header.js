@@ -1,13 +1,16 @@
 import React from 'react';
-import { useQuery, gql } from "@apollo/client";
+import { gql } from "@apollo/client";
 import {graphql} from 'react-apollo';
 
-import './Header.style.css'
 import CategoryButton from '../CategoryButton';
+import Cart from '../../assets/icons/cart.svg'
+import CurrencySwitcher from '../CurrencySwitcher';
+import Minicart from '../Minicart';
+
+import './Header.style.css'
 import Logo from '../../assets/images/logo.svg';
 import ArrowDown from '../../assets/icons/arrow-down.svg'
 import ArrowUp from '../../assets/icons/arrow-up.svg'
-import Cart from '../../assets/icons/cart.svg'
 
 const getCatogories = gql`
     {
@@ -23,7 +26,8 @@ class Header extends React.Component{
         super();
         this.state={
             categorySelected: 0,
-            optionPricesSelected: false,
+            currentSwitcherSelected: false,
+            currentMinicartSelected:false,
         }
     }
 
@@ -34,14 +38,19 @@ class Header extends React.Component{
         }
         return data.categories.map((category, key) =>{
             return(
-                <CategoryButton active={this.state.categorySelected === key? true:false} name={category.name} onClick={()=>{this.setState({categorySelected: key})}}></CategoryButton>
+                <CategoryButton key={key} active={this.state.categorySelected === key? true:false} name={category.name} onClick={()=>{this.setState({categorySelected: key})}}></CategoryButton>
             )
         })
     }
-    showPricesChangeOptions(){
-        this.setState({optionPricesSelected: !this.state.optionPricesSelected})
-        console.log('clicou')
+    showCurrencySwitcherOptions(){
+        this.setState({currentSwitcherSelected: !this.state.currentSwitcherSelected})
+        if(this.state.currentMinicartSelected) this.setState({currentMinicartSelected: false})
     }
+    showMinicart(){
+        this.setState({currentMinicartSelected: !this.state.currentMinicartSelected})
+        if(this.state.currentSwitcherSelected) this.setState({currentSwitcherSelected: false})
+    }
+
     render(){
         return(    
             <div className='Header'>
@@ -49,27 +58,37 @@ class Header extends React.Component{
                 {this.displayCategories()}
             </div>    
             <div className='Logo'>
-                <img className='Logo-Image' src={Logo}></img>
+                <img className='Logo-Image' src={Logo} alt="Logo image"></img>
             </div>
 
             <div className='Options'>
-                <div className="Options-Prices">
-                    <button className='Options-Prices-btn' onClick={()=>{this.showPricesChangeOptions()}}>
-                        <div className='Options-Prices-btn-Label'>
+                <div className="Options-Currency">
+                    <button className='Options-Currency-btn' onClick={()=>{this.showCurrencySwitcherOptions()}}>
+                        <div className='Options-Currency-btn-Label'>
                             $ 
                         </div>
-                        <div className='Options-Prices-btn-Indicator'>
-                            {this.state.optionPricesSelected===true?
-                            <img className='Options-Prices-btn-Indicator-Arrow' src={ArrowUp}/>:
-                            <img className='Options-Prices-btn-Indicator-Arrow' src={ArrowDown}/>
+                        <div className='Options-Currency-btn-Indicator'>
+                            {this.state.currentSwitcherSelected===true?
+                            <img className='Options-Currency-btn-Indicator-Arrow' alt = "Arrow Up icon" src={ArrowUp}/>:
+                            <img className='Options-Currency-btn-Indicator-Arrow' alt = "Arrow Down icon "src={ArrowDown}/>
                             }
                         </div>
-                    </button>    
+                    </button>  
+                    {this.state.currentSwitcherSelected===true?
+                        <CurrencySwitcher/>:
+                        null
+                    }
+
                 </div>
                 <div className='Options-Cart'>
-                    <div className='Options-Cart-btn'>
-                        <img className='Option-Cart-btn-Indicator' src={Cart}></img>
-                    </div>
+                    <button className='Options-Cart-btn' onClick={()=>{this.showMinicart()}}>
+                        <img className='Option-Cart-btn-Indicator' alt="Cart icon" src={Cart}/>
+                    </button>
+                    {
+                    this.state.currentMinicartSelected===true?
+                    <Minicart onOutClick={()=>{this.setState({currentMinicartSelected: false})}}/>:
+                    null
+                    }
                 </div>
             </div>
             </div>

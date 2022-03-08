@@ -1,0 +1,24 @@
+
+.Minicart{
+    position: absolute;
+    left: 0;
+    width: 100vw;
+    height: calc(100% - var(--header-height))
+}
+
+.Minicart .Minicart-ScreenBackground{
+    height: 100%;
+    width: 100%;
+    background: var(--gray);
+    opacity: 22%;
+    z-index: 2;
+}
+
+.Minicart .Minicart-ScreenBackground-Overlay{
+    position: absolute;
+    left: calc(100vw - 29%);
+    min-width: 325px;
+    background-color: var(--background-color);
+    z-index: 3;
+  
+}

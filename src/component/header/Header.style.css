@@ -1,11 +1,6 @@
-:root{
-    --background-color: #FFFFFF;
-    --edge-margin: 50px;
-    --text-color: #1D1F22;
-}
 
 .Header{
-    height: 80px;
+    height: var(--header-height);
     width: 100%;
     display: grid;
     grid-template-columns: 1fr 1fr 1fr;
@@ -40,13 +35,13 @@
     justify-content: end;
 }
 
-.Header .Options .Options-Prices{
+.Header .Options .Options-Currency{
     width: 30px;
     height: 100%;
     
 }
 
-.Header .Options .Options-Prices .Options-Prices-btn{
+.Header .Options .Options-Currency .Options-Currency-btn{
     background-color: transparent;
     border: 0;
     width: 100%;
@@ -56,7 +51,7 @@
     align-items: center;
 }
 
-.Header .Options .Options-Prices-btn-Label{
+.Header .Options .Options-Currency-btn-Label{
 font-family: Raleway;
 font-style: normal;
 font-weight: 500;
@@ -65,7 +60,7 @@ line-height: 160%;
 color: var(--text-color);
 }
 
-.Header .Options .Options-Prices-btn-Indicator{
+.Header .Options .Options-Currency-btn-Indicator{
     height: 20px;
     width: 20px;
     display: flex;
@@ -73,7 +68,7 @@ color: var(--text-color);
     align-items: center;
 }
 
-.Header .Options .Options-Prices-btn-Indicator-Arrow{
+.Header .Options .Options-Currency-btn-Indicator-Arrow{
     height: 6px;
     width: 10px;
 }
@@ -91,6 +86,8 @@ color: var(--text-color);
     display: flex;
     align-items: center;
     justify-content: center;
+    background-color: transparent;
+    border: none
 }
 
 .Header .Options .Options-Cart-btn .Options-Cart-btn-Indicator{

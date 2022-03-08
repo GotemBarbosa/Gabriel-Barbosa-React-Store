@@ -1,19 +1,22 @@
-import React from 'react';
+import React from "react";
+import { Provider } from "react-redux";
 
-import RoutesConfig from './routesConfig';
-import Header from './component/Header';
-import './global.css'
+import store from "./store";
+import RoutesConfig from "./routesConfig";
+import Header from "./component/Header";
+import "./global.css";
 
-
-class App extends React.Component{
-    render(){
-        return(
-            <div className='App'>
-                <Header/>
-                <RoutesConfig/>
-            </div>
-        )
-    }
+class App extends React.Component {
+  render() {
+    return (
+      <Provider store={store}>
+        <div className="App">
+          <Header />
+          <RoutesConfig />
+        </div>
+      </Provider>
+    );
+  }
 }
 
-export default App
+export default App;

@@ -10,5 +10,6 @@
     font-family: 'Raleway';
     font-size: 42px;
     line-height: 160%;
-    color: var(--text-color)
+    color: var(--text-color);
+    text-transform: capitalize;
 }

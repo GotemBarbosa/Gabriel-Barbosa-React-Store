@@ -2,6 +2,9 @@ import React from 'react';
 import { gql } from "@apollo/client";
 import {graphql} from 'react-apollo';
 
+import { connect } from 'react-redux';
+
+import * as CategoryActions from '../../store/actions/Category'
 import CategoryButton from '../CategoryButton';
 import Cart from '../../assets/icons/cart.svg'
 import CurrencySwitcher from '../CurrencySwitcher';
@@ -22,13 +25,18 @@ const getCatogories = gql`
 
 class Header extends React.Component{
 
-    constructor(){
-        super();
+    constructor(props){
+        super(props);
         this.state={
-            categorySelected: 0,
+            categorySelected: this.props.category.activeCategory,
             currentSwitcherSelected: false,
             currentMinicartSelected:false,
         }
+    }
+
+    handleChangeActiveCategory(key, name){
+        this.setState({categorySelected: key})
+        this.props.dispatch(CategoryActions.changeCategory(key, name))
     }
 
     displayCategories(){
@@ -38,10 +46,13 @@ class Header extends React.Component{
         }
         return data.categories.map((category, key) =>{
             return(
-                <CategoryButton key={key} active={this.state.categorySelected === key? true:false} name={category.name} onClick={()=>{this.setState({categorySelected: key})}}></CategoryButton>
+                <CategoryButton key={key} active={this.state.categorySelected === key? true:false} name={category.name} onClick={()=>{this.handleChangeActiveCategory(key, category.name)}}></CategoryButton>
             )
         })
     }
+
+   
+
     showCurrencySwitcherOptions(){
         this.setState({currentSwitcherSelected: !this.state.currentSwitcherSelected})
         if(this.state.currentMinicartSelected) this.setState({currentMinicartSelected: false})
@@ -96,4 +107,4 @@ class Header extends React.Component{
     }
 }
 
-export default graphql(getCatogories)(Header)
+export default connect(state=>({category: state.category}))(graphql(getCatogories)(Header))

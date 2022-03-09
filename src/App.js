@@ -9,12 +9,12 @@ import "./global.css";
 class App extends React.Component {
   render() {
     return (
-      <Provider store={store}>
-        <div className="App">
+      <div className="App">
+        <Provider store={store}>
           <Header />
           <RoutesConfig />
-        </div>
-      </Provider>
+        </Provider>
+      </div>
     );
   }
 }

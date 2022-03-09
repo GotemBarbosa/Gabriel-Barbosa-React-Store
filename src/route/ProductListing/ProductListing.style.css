@@ -1,15 +1,25 @@
+:root{
+    --cardWidth: 350px
+}
 .ProductListing{
     margin-top: var(--page-toHeader-margin);
-    width: 100vw;
-    height: calc(100vh - var(--header-height));
+    width: 100%;
+    height: calc(100% - var(--header-height));
     box-sizing: border-box;
     padding:  0 6%;
 }
 
-.ProductListing-CategoryTitle{
+.ProductListing .ProductListing-CategoryTitle{
     font-family: 'Raleway';
     font-size: 42px;
     line-height: 160%;
     color: var(--text-color);
     text-transform: capitalize;
+}
+
+.ProductListing .ProductListing-Products{
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(var(--cardWidth), 1fr));
+    justify-items: center
 }

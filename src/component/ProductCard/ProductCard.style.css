@@ -1,0 +1,53 @@
+
+.ProductCard{
+    width: var(--cardWidth);
+    height: 400px;
+    padding: 20px;
+    margin-top: 45px;
+    transition: 0.4s;
+    cursor: pointer
+
+}
+
+.ProductCard:hover{
+    box-shadow: 0px 0px 10px 5px rgba(0,0,0,0.15);
+}
+
+.ProductCard .ProductCard-ImageArea{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: calc(var(--cardWidth) - 65px);
+    overflow: hidden
+}
+
+.ProductCard .ProductCard-ImageArea .ProductCard-ImageArea-Image
+{
+    background-size: cover;
+    height: auto;
+    max-width: 100%
+}
+.ProductCard .ProductCard-Data{
+    margin-top: 20px;
+}
+
+.ProductCard .ProductCard-Data .ProductCard-Data-Name
+{
+    font-family: 'Raleway';
+    font-weight: 300;
+    font-size: 18px;
+    line-height: 160%;
+    color: var(--text-color);
+    text-decoration: none;
+}
+.ProductCard .ProductCard-Data .ProductCard-Data-Price{
+    font-family: 'Raleway';
+    font-weight: 500;
+    font-size: 18px;
+    line-height: 160%;
+    text-decoration: none;
+    color: var(--text-color);
+    text-decoration: none;
+
+}

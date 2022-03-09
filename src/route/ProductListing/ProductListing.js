@@ -4,7 +4,9 @@ import { graphql } from "react-apollo";
 
 import { connect } from "react-redux";
 
+
 import "./ProductListing.style.css";
+import ProductCard from "../../component/ProductCard";
 
 const getNewProducts = gql`
   query ($type: String!) {
@@ -43,20 +45,14 @@ const getNewProducts = gql`
 class ProductListing extends React.Component {
 
   displayProducts() {
-    //const {products} = this.props.data.category;
-    const data = this.props.data
-    if(data.loading){
-        return(<div>...</div>)
+    const data = this.props.data;
+    if (data.loading) {
+      return <div>...</div>;
     }
-      return data.category.products.map((product, key) => (
-        <div key={key}>
-          Nome: {product.name} - {product.id}
-        </div>
-      ));
+    return data.category.products.map((product, key) =><ProductCard key={product.id} data={product}/>);
   }
 
   render() {
-      console.log(this.props)
     return (
       <div className="ProductListing">
         <div className="ProductListing-CategoryTitle">

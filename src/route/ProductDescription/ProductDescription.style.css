@@ -1,0 +1,191 @@
+:root{
+    --marginTop-Items: 30px
+}
+.ProductDescription{
+    margin-top: var(--page-toHeader-margin);
+    width: 100%;
+    height: calc(100% - var(--header-height));
+    box-sizing: border-box;
+    padding:  0 10% 0 6%;
+    margin-right: 10px;
+
+    display: flex;
+}
+
+.ProductDescription .ProductDescription-ImageArea{
+    display: flex;
+    width: 70%;
+    user-select: none;
+}
+
+.ProductDescription-ImaegeArea-ShowcaseOptions{
+    
+    width: 25%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.ShowcaseOptions-Image{
+    max-width: 80%;
+    height: auto;
+    margin-bottom: 50px;
+    cursor: pointer;
+}
+
+.ProductDescription-ImageArea-ShowcaseBig{
+    width: 100%;
+    margin-left: 10%; 
+}
+.ProductDescription-ShowcaseBig-Image{
+    max-width: 100%;
+    height: auto;
+}
+
+.ProductDescription-ProductInformation{
+    display: flex;
+    flex-direction: column;
+    flex: 1;
+
+    margin-left: 60px
+}
+
+.ProductDescription-ProductInformation-Indentification{
+    display: flex;
+    flex-direction: column;
+    align-items: left;
+}
+.ProductDescription-ProductInformation-Indentification-Brand{
+    font-family: 'Raleway';
+    font-weight: 600;
+    font-size: 30px;
+    line-height: 160%;
+    color: var(--text-color);
+}
+
+.ProductDescription-ProductInformation-Indentification-Name{
+    font-family: 'Raleway';
+    font-weight: 400;
+    font-size: 30px;
+    color: var(--text-color)
+}
+
+.ProductDescription-ProductInformation-Attributes{
+    margin-top: var(--marginTop-Items);
+}
+
+.Attribute{
+    display: flex;
+    flex-direction: column;
+    margin-top: 20px;
+}
+
+.Attribute-Title{
+    font-family: 'Roboto Condensed';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 18px;
+    line-height: 160%;
+    color: var(--text-color);
+    text-transform: uppercase;
+}
+
+.AttributeText,
+.AttributeSwatch
+{
+    display: flex;
+    flex-direction: row;
+    margin-top: 5px;
+}
+
+.AttributeText-Option{
+    padding: 0 15px;
+    height: 45px;
+    border: 1px solid var(--text-color);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: 10px;
+    cursor: pointer;
+    user-select: none;
+}
+
+.AttributeSwatch-Option{
+    padding: 0 15px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    user-select: none;
+}
+
+.AttributeSwatch-Option-Color{
+    height: 25px;
+    width: 25px;
+    margin-right: 5px;
+    border-radius: 100%;
+    border: 0.5px solid #9b9999;
+    margin-bottom: 5px;
+    cursor: pointer;
+}
+
+.AttributeText-Option-Text,
+.AttributeSwatch-Option-Text
+{
+    font-family: 'Source Sans Pro';
+    letter-spacing: 0.03em;
+
+}
+.AttributeSwatch-Option-Text{
+    font-size: 14px;
+}
+
+
+
+
+.ProductDescription-ProductInformation-PurchaseArea{
+    margin-top: var(--marginTop-Items);
+    display: flex;
+    flex-direction: column;
+    align-items:flex-start;
+}
+
+.ProductDescription-ProductInformation-PurchaseArea-Price{
+    font-family: 'Roboto Condensed';
+    font-style: normal;
+    font-weight: 700;
+    font-size: 18px;
+    line-height: 160%;
+    color: var(--text-color);
+}
+
+.ProductDescription-ProductInformation-PurchaseArea-PriceValue{
+    font-family: 'Raleway';
+    font-weight: 700;
+    font-size: 24px;
+    line-height: 160%;
+    margin-top: 10px;
+}
+
+.ProductDescription-ProductInformation-PurchaseArea-Button{
+    width: 100%;
+    height: 52px;
+    border: none;
+    background-color: var(--active-color);
+    color: var(--text-white-color);
+    cursor: pointer;
+
+    font-weight: 600;
+    font-size: 16px;
+    margin-top: 25px;
+}
+
+.ProductDescription-ProductInformation-Description{
+    margin-top: var(--marginTop-Items);
+}
+.ProductDescription-ProductInformation-Description-Text{
+    font-family: 'Roboto';
+    font-weight: 400;
+    font-size: 16px;
+    line-height: 160%;
+    color: var(--text-color)
+}

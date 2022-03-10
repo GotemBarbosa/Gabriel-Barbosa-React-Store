@@ -49,7 +49,7 @@ class ProductListing extends React.Component {
     if (data.loading) {
       return <div>...</div>;
     }
-    return data.category.products.map((product, key) =><ProductCard key={product.id} data={product}/>);
+    return data.category.products.map((product, key) =><ProductCard key={product.id} data={product} currency={this.props.activeCurrency}/>);
   }
 
   render() {
@@ -67,6 +67,7 @@ class ProductListing extends React.Component {
 
 export default connect((state) => ({
   categoryName: state.category.activeCategoryName,
+  activeCurrency: state.currency.activeCurrency
 }))(
   graphql(getNewProducts, {
     options: (props) => {

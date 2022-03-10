@@ -3,6 +3,10 @@ import React from 'react';
 import { gql } from "@apollo/client";
 import {graphql} from 'react-apollo';
 
+import { connect } from 'react-redux';
+
+import * as CurrencyActions from '../../store/actions/Currency'
+
 import './CurrencySwitcher.style.css'
 
 const getCurrencies = gql`
@@ -16,6 +20,10 @@ const getCurrencies = gql`
 
 
 class CurrencySwitcher extends React.Component{
+    handleChangeActiveCurrency(key){
+        console.log(this.props.currency.activeCurrency)
+        this.props.dispatch(CurrencyActions.changeCurrency(key))
+    }
 
     displayCurrencies(){
         const data = this.props.data
@@ -24,7 +32,7 @@ class CurrencySwitcher extends React.Component{
         }
         return data.currencies.map((currency, key) =>{
             return(
-                <button key={key} className='CurrencySwitcher-btn'>{currency.symbol} {currency.label}</button>
+        <button key={key} className='CurrencySwitcher-btn' onClick={()=>{this.handleChangeActiveCurrency(key)}}>{currency.symbol} {currency.label}</button>
             )
         })
     }
@@ -37,4 +45,5 @@ class CurrencySwitcher extends React.Component{
     }
 }
 
-export default graphql(getCurrencies)(CurrencySwitcher)
+export default connect(state=>({currency: state.currency}))(graphql(getCurrencies)(CurrencySwitcher))
+

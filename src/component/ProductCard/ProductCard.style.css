@@ -2,7 +2,7 @@
 .ProductCard{
     width: var(--cardWidth);
     height: 400px;
-    padding: 20px;
+    padding: 10px;
     margin-top: 45px;
     transition: 0.4s;
     cursor: pointer

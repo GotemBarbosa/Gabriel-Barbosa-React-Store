@@ -20,9 +20,13 @@
     font-weight: 500;
     font-size: 18px;
     line-height: 28.8px;
-    margin-bottom: 20px;
+    padding: 10px 0; 
     cursor: pointer;
     padding-left: 20px;
     color: var(--text-color);
     border: none
+}
+
+.CurrencySwitcher-btn:hover{
+    background-color: rgb(245, 244, 244);
 }

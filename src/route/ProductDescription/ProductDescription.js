@@ -6,6 +6,7 @@ import { graphql } from "react-apollo";
 import { connect } from "react-redux";
 
 import { withRouter } from "../../utils/withRouter";
+import ItemAttribute from "../../component/ItemAttribute";
 import "./ProductDescription.style.css";
 
 const getProduct = gql`
@@ -39,65 +40,66 @@ const getProduct = gql`
 `;
 
 class ProductDescription extends React.Component {
-
-  constructor(){
-    super()
-    this.state={
-        currentImage: 0,
-        attributes:[]
-    }
+  constructor() {
+    super();
+    this.state = {
+      currentImage: 0,
+      thereIsAttributes:false,
+      attributes: null,
+    };
+    this.attributesData = this.attributesData.bind(this)
   }
-
   showProductImages(data) {
     return data.product.gallery.map((imageURL, key) => (
-      <img src={imageURL} key={key} className="ShowcaseOptions-Image" onClick={()=>{this.setState({currentImage: key})}} />
+      <img
+        src={imageURL}
+        key={key}
+        className="ShowcaseOptions-Image"
+        alt="ShowCase Option image"
+        onClick={() => {
+          this.setState({ currentImage: key });
+        }}
+      />
     ));
+  }
+  attributesData(data){
+    if(this.state.attributes){
+      let getSameItem = false
+      let itemKey = null
+      this.state.attributes.map((item,key)=>{
+        if(item.id === data.id){
+          getSameItem = true
+          itemKey = key
+        }
+      })
+      if(getSameItem === true){
+        const tempAttributes = this.state.attributes
+        tempAttributes.splice(itemKey,1,data)
+        this.setState({attributes: tempAttributes})
+      }else{
+        this.setState({
+          attributes: [...this.state.attributes, data]
+        })
+      }
+    }else{
+      this.setState({
+        attributes: [data]
+      })
+    }
+
   }
 
   showAttributes(data) {
-    if (data.product.attributes) {
-      return data.product.attributes.map((attribute) => {
-        //   const obj = Object.create({id: attribute.id, selected: null})
-        if (attribute.type === "text") {
-          return (
-              <div className="Attribute">
-              <p className="Attribute-Title">{attribute.name}:</p>
-              <div className="AttributeText">
-              {attribute.items.map((item) => (
-                <div className="AttributeText-Option">
-                  <p className="AttributeText-Option-Text">
-                    {item.displayValue}
-                  </p>
-                </div>
-              ))}
-              </div>
-              </div>
-          );
-        }
-        if (attribute.type === "swatch") {
-          return (
-            <div className="Attribute" >
-            <p className="Attribute-Title">{attribute.name}:</p>
-            <div className="AttributeSwatch">
-              {attribute.items.map((item) => (
-                <div className="AttributeSwatch-Option">
-                  <div className="AttributeSwatch-Option-Color" style={{backgroundColor: `${item.value}`}} />
-                  <p className="AttributeSwatch-Option-Text">
-                    {item.displayValue}
-                  </p>
-                </div>
-              ))}
-            </div>
-            </div>
-          );
-        }
-      });
-    }
-    return;
+      if(data.product.attributes.length === 0){
+        this.setState({thereIsAttributes: false})
+      }else{
+        return data.product.attributes.map((attribute, key) => {
+          return <ItemAttribute attribute={attribute} key={key} id={attribute.id} attributesData={this.attributesData}/>;
+        }); 
+      }
   }
 
   render() {
-    //console.log(this.props.data.product.attributes) //APAGAR DEPOIS ---------------------------------------
     const data = this.props.data;
     if (data.loading) {
       return <div>LOADING...</div>;
@@ -111,6 +113,7 @@ class ProductDescription extends React.Component {
           <div className="ProductDescription-ImageArea-ShowcaseBig">
             <img
               className="ProductDescription-ShowcaseBig-Image"
+              alt="ShowCase Big image"
               src={data.product.gallery[this.state.currentImage]}
             />
           </div>
@@ -151,17 +154,18 @@ class ProductDescription extends React.Component {
   }
 }
 
-export default connect((state)=>({
-  activeCurrency: state.currency.activeCurrency
-}))(withRouter(
-  graphql(getProduct, {
-    options: (props) => {
-      return {
-        variables: {
-          id: props.match.params.id,
-        },
-      };
-    },
-  })(ProductDescription))
+export default connect((state) => ({
+  activeCurrency: state.currency.activeCurrency,
+}))(
+  withRouter(
+    graphql(getProduct, {
+      options: (props) => {
+        return {
+          variables: {
+            id: props.match.params.id,
+          },
+        };
+      },
+    })(ProductDescription)
+  )
 );
-

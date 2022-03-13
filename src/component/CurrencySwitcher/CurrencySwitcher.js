@@ -21,7 +21,6 @@ const getCurrencies = gql`
 
 class CurrencySwitcher extends React.Component{
     handleChangeActiveCurrency(key){
-        console.log(this.props.currency.activeCurrency)
         this.props.dispatch(CurrencyActions.changeCurrency(key))
     }
 

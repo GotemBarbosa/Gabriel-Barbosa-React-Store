@@ -122,7 +122,6 @@ class ProductDescription extends React.Component {
   }
 
   render() {
-    console.log(this.props.cartItems)
     const data = this.props.data;
     if (data.loading) {
       return <div>LOADING...</div>;
@@ -179,7 +178,6 @@ class ProductDescription extends React.Component {
 
 export default connect((state) => ({
   activeCurrency: state.currency.activeCurrency,
-  cartItems: state.cart.cartItems,
 }))(
   withRouter(
     graphql(getProduct, {

@@ -5,3 +5,10 @@ export function addToCart(product){
         product
     }
 }
+export function updateCartQuantity(cartItemId,newQuantity){
+    return{
+        type: "UPDATE_QUANTITY",
+        cartItemId,
+        newQuantity   
+    }
+}

@@ -1,4 +1,6 @@
-
+:root{
+    --itemsMargin-to-bottom: 25px
+}
 .Minicart{
     position: absolute;
     left: 0;
@@ -9,16 +11,174 @@
 .Minicart .Minicart-ScreenBackground{
     height: 100%;
     width: 100%;
-    background: var(--gray);
-    opacity: 22%;
-    z-index: 2;
+    background: var(--gray-opacity);
+
+    z-index: 1;
 }
 
 .Minicart .Minicart-ScreenBackground-Overlay{
     position: absolute;
-    left: calc(100vw - 29%);
-    min-width: 325px;
+    left: calc(100vw - 33%);
+    width: 325px;
     background-color: var(--background-color);
-    z-index: 3;
-  
+    z-index: 2;
+    display: flex;
+    flex-direction: column;
+    padding: 10px 15px
+}
+
+.Minicart-Header{
+    display: flex;
+    margin-bottom: var(--itemsMargin-to-bottom);
+}
+
+.Minicart-Header-Indentificantion{
+    font-family: 'Raleway';
+    color: var(--text-color);
+    font-weight: 700;
+    font-size: 16px;
+    line-height: 160%;
+}
+
+.Minicart-Header-CartItemsCount{
+    font-family: 'Raleway';
+    color: var(--text-color);
+    font-weight: 600;
+    font-size: 16px;
+    line-height: 160%;
+}
+
+.Minicart-Products{
+    margin-bottom: var(--itemsMargin-to-bottom);
+}
+
+.Minicart-Products-Product{
+    width: 100%;
+    display: grid;
+    grid-template-columns: 3.5fr 0.5fr 2fr;
+    margin-bottom: var(--itemsMargin-to-bottom);
+}
+
+.Minicart-Products-Product-Information{
+    padding: 10px 0 10px 10px;
+}
+
+.Minicart-Products-Product-Information-Indentification{
+    margin-bottom: 10px;
+}
+
+.Minicart-Products-Product-Information-Indentification-Brand,
+.Minicart-Products-Product-Information-Indentification-Name{
+    font-family: 'Raleway';
+    font-weight: 300;
+    font-size: 16px;
+    line-height: 160%;
+    color: var(--text-color)
+}
+
+.Minicart-Products-Product-Information-Value{
+    margin-bottom: 10px;
+}
+
+.Minicart-Products-Product-Information-Value-Label{
+    font-family: 'Raleway';
+    font-weight: 500;
+    font-size: 16px;
+    line-height: 160%;
+    color: var(--text-color)
+}
+
+.Minicart-Products-Product-Quantity{
+    
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+    margin-right: 10px;
+}
+
+.Minicart-Products-Product-Quantity-PlusButton,
+.Minicart-Products-Product-Quantity-MinusButton{
+    width: 25px;
+    height: 25px;
+    background: transparent;
+    border: 1px solid var(--text-color);
+    font-size: 22px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-family: 'Raleway';
+    font-weight: 400;
+    cursor: pointer;
+}
+
+.Minicart-Products-Product-Quantity-CurrentQuantity{
+    font-family: 'Raleway';
+    font-weight: 500;
+    font-size: 16px;
+    color: var(--text-color)
+}
+
+.Minicart-Products-Product-ImageArea{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.Minicart-Products-Product-ImageArea-Image{
+    width: auto;
+    max-height: auto;
+    max-width: 100%;
+}
+
+.Minicart-TotalPrice{
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    margin-bottom: var(--itemsMargin-to-bottom);
+}
+
+.Minicart-TotalPrice-Label{
+    font-family: 'Roboto';
+    color: var(--text-color);
+    font-weight: 500;
+    font-size: 16px;
+}
+
+.Minicart-TotalPrice-Value{
+    font-family: 'Raleway';
+    color: var(--text-color);
+    font-weight: 700;
+    font-size: 16px;
+}
+
+.Minicart-Functions{
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    height: 43px;
+}
+
+.Minicart-Functions-ViewBagButton{
+    width: 48%;
+    background: transparent;
+    border: 1px solid var(--text-color);
+    font-family: 'Raleway';
+    font-weight: 600;
+    font-size: 14px;
+    color: var(--text-color);
+    cursor: pointer
+}
+
+.Minicart-Functions-CheckOutButton{
+    width: 48%;
+    border: none;
+    background-color: var(--active-color);
+
+    font-family:'Raleway';
+    font-weight: 600;
+    font-size: 14px;
+    color: var(--text-white-color);
+    cursor: pointer;
+    
 }

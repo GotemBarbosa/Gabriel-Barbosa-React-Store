@@ -4,6 +4,7 @@ import { gql } from "@apollo/client";
 import { graphql } from "react-apollo";
 
 import { connect } from "react-redux";
+import * as CartActions from '../../store/actions/Cart'
 
 import { withRouter } from "../../utils/withRouter";
 import ItemAttribute from "../../component/ItemAttribute";
@@ -12,6 +13,7 @@ import "./ProductDescription.style.css";
 const getProduct = gql`
   query ($id: String!) {
     product(id: $id) {
+      id
       name
       inStock
       gallery
@@ -44,8 +46,7 @@ class ProductDescription extends React.Component {
     super();
     this.state = {
       currentImage: 0,
-      thereIsAttributes:false,
-      attributes: null,
+      attributes: [],
     };
     this.attributesData = this.attributesData.bind(this)
   }
@@ -91,15 +92,37 @@ class ProductDescription extends React.Component {
 
   showAttributes(data) {
       if(data.product.attributes.length === 0){
-        this.setState({thereIsAttributes: false})
+        return null
       }else{
         return data.product.attributes.map((attribute, key) => {
           return <ItemAttribute attribute={attribute} key={key} id={attribute.id} attributesData={this.attributesData}/>;
         }); 
       }
   }
+  addToCart(data){
+    let errorFinder = false
+    
+    if(data.product.attributes.length !== 0){
+      if(data.product.attributes.length !== this.state.attributes.length){
+        return alert('erro')
+      }else{
+        this.state.attributes.map((item)=>{
+          if(item.selected === null){
+            errorFinder = true
+            return alert('erro2')
+          }
+        })
+        if(!errorFinder){
+          this.props.dispatch(CartActions.addToCart({productId:data.product.id, attributes: this.state.attributes, quantity:1}))
+        }
+      }
+    }else{
+      this.props.dispatch(CartActions.addToCart({productId:data.product.id, attributes: [], quantity:1}))
+    }
+  }
 
   render() {
+    console.log(this.props.cartItems)
     const data = this.props.data;
     if (data.loading) {
       return <div>LOADING...</div>;
@@ -138,7 +161,7 @@ class ProductDescription extends React.Component {
               {data.product.prices[this.props.activeCurrency].currency.symbol}
               {data.product.prices[this.props.activeCurrency].amount}
             </p>
-            <button className="ProductDescription-ProductInformation-PurchaseArea-Button">
+            <button className="ProductDescription-ProductInformation-PurchaseArea-Button" onClick={()=>{this.addToCart(data)}}>
               ADD TO CART
             </button>
           </div>
@@ -156,6 +179,7 @@ class ProductDescription extends React.Component {
 
 export default connect((state) => ({
   activeCurrency: state.currency.activeCurrency,
+  cartItems: state.cart.cartItems,
 }))(
   withRouter(
     graphql(getProduct, {

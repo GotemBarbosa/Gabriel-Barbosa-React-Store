@@ -1,0 +1,24 @@
+ 
+.Cart{
+    margin-top: var(--page-toHeader-margin);
+    width: 100%;
+    height: calc(100% - var(--header-height));
+    padding:  0 8% 0 6%;
+    display: flex;
+    flex-direction: column;
+}
+
+.Cart-Header{
+    width: 100%;
+    margin-bottom: 60px;
+}
+.Cart-Header-Text{
+    font-family: 'Raleway';
+    font-weight: 700;
+    font-size: 32px;
+    line-height: 125%;
+}
+.Cart-Products{
+    display: flex;
+    flex-direction: column;
+}

@@ -63,6 +63,10 @@ class Header extends React.Component{
     }
 
     render(){
+        const data = this.props.data;
+            if (data.loading) {
+        return <div>LOADING...</div>;
+        }
         return(    
             <div className='Header'>
             <div className='Categories'>

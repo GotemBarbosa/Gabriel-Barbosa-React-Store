@@ -5,16 +5,16 @@ class ItemAttribute extends React.Component {
   constructor() {
     super();
     this.state = {
-      selected: null,
+      selected:null,
     };
   }
-  changeSelection(key){
+  changeSelection(key, type){
         if(this.state.selected === key){
             this.setState({ selected: null })
-            this.props.attributesData({id: this.props.id, selected: null })
+            this.props.attributesData({id: this.props.id, type: type,selected: null })
         }else{
-            this.setState({ selected: key })
-            this.props.attributesData({id: this.props.id, selected: key })
+            this.setState({ selected: key }) 
+            this.props.attributesData({id: this.props.id, type: type, selected: key })
         }
   }
 
@@ -27,7 +27,7 @@ class ItemAttribute extends React.Component {
             {this.props.attribute.items.map((item, key) => (
               <button
                 className={this.state.selected === key?"AttributeText-Option-Selected":"AttributeText-Option"}
-                onClick={()=>{this.changeSelection(key)}}
+                onClick={()=>{this.changeSelection(key, 'text')}}
                 key={key}
               >
                 <p className="AttributeText-Option-Text">{item.displayValue}</p>
@@ -47,7 +47,7 @@ class ItemAttribute extends React.Component {
                 <button
                   className={this.state.selected === key?"AttributeSwatch-Option-Color-Selected":"AttributeSwatch-Option-Color"}
                   style={{ backgroundColor: `${item.value}` }}
-                  onClick={(()=>{this.changeSelection(key)})}
+                  onClick={(()=>{this.changeSelection(key, 'swatch')})}
                   key={key}
                 />
                 <p className="AttributeSwatch-Option-Text">

@@ -113,7 +113,7 @@ class ProductDescription extends React.Component {
           }
         })
         if(!errorFinder){
-          this.props.dispatch(CartActions.addToCart({productId:data.product.id, attributes: this.state.attributes, quantity:1}))
+          this.props.dispatch(CartActions.addToCart({productId:data.product.id, attributes: this.state.attributes, type: this.state.type, quantity:1}))
         }
       }
     }else{
@@ -135,7 +135,7 @@ class ProductDescription extends React.Component {
           <div className="ProductDescription-ImageArea-ShowcaseBig">
             <img
               className="ProductDescription-ShowcaseBig-Image"
-              alt="ShowCase Big image"
+              alt="ShowCase Big"
               src={data.product.gallery[this.state.currentImage]}
             />
           </div>

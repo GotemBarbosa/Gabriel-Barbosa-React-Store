@@ -33,16 +33,10 @@ const getData = gql`
 `;
 
 class Minicart extends React.Component {
-  constructor() {
-    super();
-    this.state = {
-      fullPrice: 0,
-    };
-  }
-  showProducts() {
+  showProducts(data) {
     return this.props.cartItems.map((cartItem, key) => {
-      return this.props.data.category.products.map((item) => {
-        if ((item.id == cartItem.productId) &&cartItem.quantity != 0) {
+      return data.category.products.map((item) => {
+        if ((item.id === cartItem.productId) && (cartItem.quantity !== 0)) {
           return (
             <div className="Minicart-Products-Product" key={key}>
               <div className="Minicart-Products-Product-Information">
@@ -56,7 +50,7 @@ class Minicart extends React.Component {
                 </div>
                 <div className="Minicart-Products-Product-Information-Value">
                   <p className="Minicart-Products-Product-Information-Value-Label">
-                    {item.prices[this.props.activeCurrency].currency.symbol}{" "}
+                    {item.prices[this.props.activeCurrency].currency.symbol}
                     {item.prices[this.props.activeCurrency].amount}
                   </p>
                 </div>
@@ -82,34 +76,34 @@ class Minicart extends React.Component {
                 <img
                   src={item.gallery[0]}
                   className="Minicart-Products-Product-ImageArea-Image"
+                  alt='Product'
                 />
               </div>
             </div>
           );
         }
-        return;
+        return null;
       });
     });
   }
 
-  getFullPrice() {
+  getFullPrice(data) {
     let price = 0
-    this.props.cartItems.map((cartItem)=>{
-        this.props.data.category.products.map((item)=>{
-            if (item.id == cartItem.productId) {
-                price += (item.prices[this.props.activeCurrency].amount * cartItem.quantity) 
+    this.props.cartItems.map((cartItem)=>(
+        data.category.products.map((item)=>{
+            if (item.id === cartItem.productId) {
+               return price += (item.prices[this.props.activeCurrency].amount * cartItem.quantity) 
             }
-            
         })
-    })
+    ))
     return parseFloat(price).toFixed(2)
   }
   render() {
     const data = this.props.data;
-    const fullPrice = this.getFullPrice()
     if (data.loading) {
       return <div>...</div>;
     }
+    const fullPrice = this.getFullPrice(data)
     return (
       <div className="Minicart">
         <div
@@ -128,13 +122,13 @@ class Minicart extends React.Component {
                 , {this.props.cartItems.length} items
               </p>
             </div>
-            <div className="Minicart-Products">{this.showProducts()}</div>
+            <div className="Minicart-Products">{this.showProducts(data)}</div>
             <div className="Minicart-TotalPrice">
               <p className="Minicart-TotalPrice-Label">Total</p>
               <p className="Minicart-TotalPrice-Value">{this.props.data.currencies[this.props.activeCurrency].symbol} {fullPrice}</p>
             </div>
             <div className="Minicart-Functions">
-              <button className="Minicart-Functions-ViewBagButton">
+              <button className="Minicart-Functions-ViewBagButton" onClick={()=>{this.props.navigate(`/cart`); this.props.onOutClick()}}>
                 VIEW BAG
               </button>
               <button className="Minicart-Functions-CheckOutButton">
@@ -151,4 +145,4 @@ class Minicart extends React.Component {
 export default connect((state) => ({
   cartItems: state.cart.cartItems,
   activeCurrency: state.currency.activeCurrency,
-}))(graphql(getData)(Minicart));
+}))(graphql(getData)(withRouter(Minicart)));

@@ -1,48 +1,72 @@
-import React from 'react';
+import React from "react";
 
 import { gql } from "@apollo/client";
-import {graphql} from 'react-apollo';
+import { graphql } from "react-apollo";
 
-import { connect } from 'react-redux';
+import { connect } from "react-redux";
 
-import * as CurrencyActions from '../../store/actions/Currency'
+import * as CurrencyActions from "../../store/actions/Currency";
 
-import './CurrencySwitcher.style.css'
+import "./CurrencySwitcher.style.css";
 
 const getCurrencies = gql`
-    {
-        currencies{
-            symbol
-            label
-        }
+  {
+    currencies {
+      symbol
+      label
     }
-`
+  }
+`;
 
+class CurrencySwitcher extends React.Component {
+  handleChangeActiveCurrency(key, symbol) {
+    this.props.dispatch(CurrencyActions.changeCurrency(key, symbol));
+  }
 
-class CurrencySwitcher extends React.Component{
-    handleChangeActiveCurrency(key){
-        this.props.dispatch(CurrencyActions.changeCurrency(key))
+  displayCurrencies() {
+    const data = this.props.data;
+    if (data.loading) {
+      return <div>Loading...</div>;
     }
-
-    displayCurrencies(){
-        const data = this.props.data
-        if(data.loading){
-            return(<div>Loading...</div>)
-        }
-        return data.currencies.map((currency, key) =>{
-            return(
-        <button key={key} className='CurrencySwitcher-btn' onClick={()=>{this.handleChangeActiveCurrency(key)}}>{currency.symbol} {currency.label}</button>
-            )
-        })
-    }
-    render(){
-        return(
-            <div className='CurrencySwitcher'>
-                {this.displayCurrencies()}
-            </div>
-        )
-    }
+    return data.currencies.map((currency, key) => {
+      return (
+        <button
+          key={key}
+          className={
+            key === this.props.currency.activeCurrency
+              ? "CurrencySwitcher-Overlay-Active-btn"
+              : "CurrencySwitcher-Overlay-btn"
+          }
+          onClick={() => {
+            this.handleChangeActiveCurrency(key, currency.symbol);
+          }}
+        >
+          {currency.symbol} {currency.label}
+        </button>
+      );
+    });
+  }
+  render() {
+    return (
+      <div className="CurrencySwitcher">
+        <div
+          className="CurrencySwitcher-Background"
+          onClick={this.props.onOutClick}
+        >
+          <div
+            className="CurrencySwitcher-Overlay"
+            onClick={(e) => {
+              e.stopPropagation();
+            }}
+          >
+            {this.displayCurrencies()}
+          </div>
+        </div>
+      </div>
+    );
+  }
 }
 
-export default connect(state=>({currency: state.currency}))(graphql(getCurrencies)(CurrencySwitcher))
-
+export default connect((state) => ({ currency: state.currency }))(
+  graphql(getCurrencies)(CurrencySwitcher)
+);

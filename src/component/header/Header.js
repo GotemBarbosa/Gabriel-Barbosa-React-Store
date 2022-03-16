@@ -80,7 +80,7 @@ class Header extends React.Component{
                 <div className="Options-Currency">
                     <button className='Options-Currency-btn' onClick={()=>{this.showCurrencySwitcherOptions()}}>
                         <div className='Options-Currency-btn-Label'>
-                            $ 
+                            {this.props.currency.activeCurrencySymbol}
                         </div>
                         <div className='Options-Currency-btn-Indicator'>
                             {this.state.currentSwitcherSelected===true?
@@ -90,7 +90,7 @@ class Header extends React.Component{
                         </div>
                     </button>  
                     {this.state.currentSwitcherSelected===true?
-                        <CurrencySwitcher/>:
+                        <CurrencySwitcher  onOutClick={()=>{this.setState({currentSwitcherSelected: false})}}/>:
                         null
                     }
 
@@ -111,4 +111,4 @@ class Header extends React.Component{
     }
 }
 
-export default connect(state=>({category: state.category}))(graphql(getCatogories)(Header))
+export default connect(state=>({category: state.category, currency: state.currency}))(graphql(getCatogories)(Header))

@@ -4,6 +4,8 @@ import * as CartActions from '../../store/actions/Cart'
 
 import arrowLeft from '../../assets/icons/arrow-left-white.svg'
 import arrowRight from '../../assets/icons/arrow-right-white.svg'
+import minusIcon from '../../assets/icons/minus.svg'
+import plusIcon from '../../assets/icons/plus.svg'
 
 import './CartProduct.style.css'
 
@@ -108,7 +110,7 @@ class CartProduct extends React.Component{
                       <button className="Product-Quantity-PlusButton" onClick={()=>{
                         this.props.dispatch(CartActions.updateCartQuantity(this.props.index, this.props.cartItem.quantity + 1))
                       }}>
-                        +
+                        <img src={plusIcon}  alt="plus"/>
                       </button>
                       <p className="Product-Quantity-CurrentQuantity">
                         {this.props.cartItem.quantity}
@@ -117,7 +119,7 @@ class CartProduct extends React.Component{
                       onClick={()=>{
                         this.props.dispatch(CartActions.updateCartQuantity(this.props.index, this.props.cartItem.quantity - 1))
                       }}>
-                        -
+                        <img src={minusIcon} alt="minus"/>
                       </button>
                     </div>
                     <div className="Product-ImageArea">

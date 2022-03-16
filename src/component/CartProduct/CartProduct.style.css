@@ -49,12 +49,9 @@
     height: 40px;
     background: transparent;
     border: 1px solid var(--text-color);
-    font-size: 45px;
     display: flex;
     justify-content: center;
     align-items: center;
-    font-family: 'Raleway';
-    font-weight: 400;
     cursor: pointer;
 }
 

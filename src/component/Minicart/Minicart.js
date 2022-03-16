@@ -7,6 +7,8 @@ import { graphql } from "react-apollo";
 import { withRouter } from "../../utils/withRouter";
 
 import "./Minicart.styles.css";
+import minusIcon from '../../assets/icons/minus.svg'
+import plusIcon from '../../assets/icons/plus.svg'
 
 const getData = gql`
   {
@@ -60,7 +62,7 @@ class Minicart extends React.Component {
                 <button className="Minicart-Products-Product-Quantity-PlusButton" onClick={()=>{
                     this.props.dispatch(CartActions.updateCartQuantity(key, cartItem.quantity + 1))
                 }}>
-                  +
+                  <img src={plusIcon} className="Minicart-Products-Product-Quantity-PlusButton-Icon"  alt="plus"/>
                 </button>
                 <p className="Minicart-Products-Product-Quantity-CurrentQuantity">
                   {cartItem.quantity}
@@ -69,7 +71,7 @@ class Minicart extends React.Component {
                 onClick={()=>{
                     this.props.dispatch(CartActions.updateCartQuantity(key, cartItem.quantity - 1))
                 }}>
-                  -
+                  <img src={minusIcon} className="Minicart-Products-Product-Quantity-MinusButton-Icon"  alt="minus"/>
                 </button>
               </div>
               <div className="Minicart-Products-Product-ImageArea">

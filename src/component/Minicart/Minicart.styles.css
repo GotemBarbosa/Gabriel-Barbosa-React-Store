@@ -103,13 +103,15 @@
     height: 25px;
     background: transparent;
     border: 1px solid var(--text-color);
-    font-size: 22px;
     display: flex;
     justify-content: center;
     align-items: center;
-    font-family: 'Raleway';
-    font-weight: 400;
-    cursor: pointer;
+    cursor: pointer
+}
+.Minicart-Products-Product-Quantity-PlusButton-Icon,
+.Minicart-Products-Product-Quantity-MinusButton-Icon{
+    height: 12px;
+    width: 12px;
 }
 
 .Minicart-Products-Product-Quantity-CurrentQuantity{

@@ -2,7 +2,7 @@
     --marginTop-Items: 30px
 }
 .ProductDescription{
-    margin-top: var(--page-toHeader-margin);
+    margin-top: calc(var(--page-toHeader-margin)*1.5);
     width: 100%;
     height: calc(100% - var(--header-height));
     box-sizing: border-box;

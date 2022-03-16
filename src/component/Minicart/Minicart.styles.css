@@ -12,8 +12,8 @@
     height: 100%;
     width: 100%;
     background: var(--gray-opacity);
-
-    z-index: 1;
+    z-index: 2;
+    position: fixed;
 }
 
 .Minicart .Minicart-ScreenBackground-Overlay{
@@ -21,7 +21,7 @@
     left: calc(100vw - 33%);
     width: 325px;
     background-color: var(--background-color);
-    z-index: 2;
+    z-index: 3;
     display: flex;
     flex-direction: column;
     padding: 10px 15px

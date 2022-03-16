@@ -7,7 +7,10 @@
     flex-direction: row;
     background-color: var(--background-color);
     box-sizing: border-box; 
-    user-select: none
+    user-select: none;
+    position: fixed;
+    top:0;
+    z-index: 3;
 
 }
 .Header .Categories{

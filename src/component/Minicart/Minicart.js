@@ -1,14 +1,14 @@
 import React from "react";
 import { connect } from "react-redux";
-import * as CartActions from '../../store/actions/Cart'
+import * as CartActions from "../../store/actions/Cart";
 import { gql } from "@apollo/client";
 import { graphql } from "react-apollo";
 
 import { withRouter } from "../../utils/withRouter";
 
 import "./Minicart.styles.css";
-import minusIcon from '../../assets/icons/minus.svg'
-import plusIcon from '../../assets/icons/plus.svg'
+import minusIcon from "../../assets/icons/minus.svg";
+import plusIcon from "../../assets/icons/plus.svg";
 
 const getData = gql`
   {
@@ -23,22 +23,82 @@ const getData = gql`
           }
           amount
         }
+        attributes {
+          id
+          name
+          type
+          items {
+            displayValue
+            value
+            id
+          }
+        }
         gallery
         brand
       }
     }
-    currencies{
-        symbol
-        label
-      }
+    currencies {
+      symbol
+      label
+    }
   }
 `;
 
 class Minicart extends React.Component {
+  showAttributes(cartItem, item) {
+    return cartItem.attributes.map((cartItemAttribute) => {
+      return item.attributes.map((itemAttribute) => {
+        if (cartItemAttribute.id === itemAttribute.id) {
+          return itemAttribute.items.map((itemAttributeSelection, key) => {
+            if (cartItemAttribute.selected === key) {
+              if (cartItemAttribute.type === "text") {
+                return (
+                  <div className="Minicart-Attribute">
+                    <div className="Minicart-Attribute-AttributeText">
+                      <button
+                        className="Minicart-Attribute-AttributeText-Option-Selected"
+                        key={key}
+                      >
+                        <p className="Minicart-Attribute-AttributeText-Option-Text">
+                          {itemAttributeSelection.displayValue}
+                        </p>
+                      </button>
+                    </div>
+                  </div>
+                );
+              }
+              if (cartItemAttribute.type === "swatch") {
+                return (
+                  <div className="Minicart-Attribute">
+                    <div className="Minicart-Attribute-AttributeSwatch">
+                      <div className="Minicart-Attribute-AttributeSwatch-Option" key={key}>
+                        <button
+                          className="Minicart-Attribute-AttributeSwatch-Option-Color-Selected"
+                          style={{
+                            backgroundColor: `${itemAttributeSelection.value}`,
+                          }}
+                          key={key}
+                        />
+                        <p className="Minicart-Attribute-AttributeSwatch-Option-Text">
+                          {itemAttributeSelection.displayValue}
+                        </p>
+                      </div>
+                    </div>
+                  </div>
+                );
+              }
+              return null;
+            }
+          });
+        }
+      });
+    });
+  }
+
   showProducts(data) {
     return this.props.cartItems.map((cartItem, key) => {
       return data.category.products.map((item) => {
-        if ((item.id === cartItem.productId) && (cartItem.quantity !== 0)) {
+        if (item.id === cartItem.productId && cartItem.quantity !== 0) {
           return (
             <div className="Minicart-Products-Product" key={key}>
               <div className="Minicart-Products-Product-Information">
@@ -56,29 +116,48 @@ class Minicart extends React.Component {
                     {item.prices[this.props.activeCurrency].amount}
                   </p>
                 </div>
-                <div className="Minicart-Products-Product-Information-Categories"></div>
+                <div className="Minicart-Products-Product-Information-Attributes">
+                  {this.showAttributes(cartItem, item)}
+                </div>
               </div>
               <div className="Minicart-Products-Product-Quantity">
-                <button className="Minicart-Products-Product-Quantity-PlusButton" onClick={()=>{
-                    this.props.dispatch(CartActions.updateCartQuantity(key, cartItem.quantity + 1))
-                }}>
-                  <img src={plusIcon} className="Minicart-Products-Product-Quantity-PlusButton-Icon"  alt="plus"/>
+                <button
+                  className="Minicart-Products-Product-Quantity-PlusButton"
+                  onClick={() => {
+                    this.props.dispatch(
+                      CartActions.updateCartQuantity(key, cartItem.quantity + 1)
+                    );
+                  }}
+                >
+                  <img
+                    src={plusIcon}
+                    className="Minicart-Products-Product-Quantity-PlusButton-Icon"
+                    alt="plus"
+                  />
                 </button>
                 <p className="Minicart-Products-Product-Quantity-CurrentQuantity">
                   {cartItem.quantity}
                 </p>
-                <button className="Minicart-Products-Product-Quantity-MinusButton"
-                onClick={()=>{
-                    this.props.dispatch(CartActions.updateCartQuantity(key, cartItem.quantity - 1))
-                }}>
-                  <img src={minusIcon} className="Minicart-Products-Product-Quantity-MinusButton-Icon"  alt="minus"/>
+                <button
+                  className="Minicart-Products-Product-Quantity-MinusButton"
+                  onClick={() => {
+                    this.props.dispatch(
+                      CartActions.updateCartQuantity(key, cartItem.quantity - 1)
+                    );
+                  }}
+                >
+                  <img
+                    src={minusIcon}
+                    className="Minicart-Products-Product-Quantity-MinusButton-Icon"
+                    alt="minus"
+                  />
                 </button>
               </div>
               <div className="Minicart-Products-Product-ImageArea">
                 <img
                   src={item.gallery[0]}
                   className="Minicart-Products-Product-ImageArea-Image"
-                  alt='Product'
+                  alt="Product"
                 />
               </div>
             </div>
@@ -90,22 +169,23 @@ class Minicart extends React.Component {
   }
 
   getFullPrice(data) {
-    let price = 0
-    this.props.cartItems.map((cartItem)=>(
-        data.category.products.map((item)=>{
-            if (item.id === cartItem.productId) {
-               return price += (item.prices[this.props.activeCurrency].amount * cartItem.quantity) 
-            }
-        })
-    ))
-    return parseFloat(price).toFixed(2)
+    let price = 0;
+    this.props.cartItems.map((cartItem) =>
+      data.category.products.map((item) => {
+        if (item.id === cartItem.productId) {
+          return (price +=
+            item.prices[this.props.activeCurrency].amount * cartItem.quantity);
+        }
+      })
+    );
+    return parseFloat(price).toFixed(2);
   }
   render() {
     const data = this.props.data;
     if (data.loading) {
       return <div>...</div>;
     }
-    const fullPrice = this.getFullPrice(data)
+    const fullPrice = this.getFullPrice(data);
     return (
       <div className="Minicart">
         <div
@@ -127,10 +207,19 @@ class Minicart extends React.Component {
             <div className="Minicart-Products">{this.showProducts(data)}</div>
             <div className="Minicart-TotalPrice">
               <p className="Minicart-TotalPrice-Label">Total</p>
-              <p className="Minicart-TotalPrice-Value">{this.props.data.currencies[this.props.activeCurrency].symbol} {fullPrice}</p>
+              <p className="Minicart-TotalPrice-Value">
+                {this.props.data.currencies[this.props.activeCurrency].symbol}{" "}
+                {fullPrice}
+              </p>
             </div>
             <div className="Minicart-Functions">
-              <button className="Minicart-Functions-ViewBagButton" onClick={()=>{this.props.navigate(`/cart`); this.props.onOutClick()}}>
+              <button
+                className="Minicart-Functions-ViewBagButton"
+                onClick={() => {
+                  this.props.navigate(`/cart`);
+                  this.props.onOutClick();
+                }}
+              >
                 VIEW BAG
               </button>
               <button className="Minicart-Functions-CheckOutButton">

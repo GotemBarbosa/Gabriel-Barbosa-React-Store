@@ -76,10 +76,6 @@
     color: var(--text-color)
 }
 
-.Minicart-Products-Product-Information-Value{
-    margin-bottom: 10px;
-}
-
 .Minicart-Products-Product-Information-Value-Label{
     font-family: 'Raleway';
     font-weight: 500;
@@ -183,4 +179,68 @@
     color: var(--text-white-color);
     cursor: pointer;
     
+}
+
+.Minicart-Attribute{
+    display: flex;
+    flex-direction: column;
+    margin-top: 10px;
+}
+.Minicart-Attribute-AttributeText,
+.Minicart-Attribute-AttributeSwatch
+{
+    display: flex;
+    flex-direction: row;
+    margin-top: 5px;
+}
+
+.Minicart-Attribute-AttributeText-Option,
+.Minicart-Attribute-AttributeText-Option-Selected{
+    padding: 0 10px;
+    height: 24px;
+    border: 1px solid var(--text-color);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-right: 10px;
+    user-select: none;
+    background: transparent;
+    transition: 0.3s;
+}
+.Minicart-Attribute-AttributeText-Option-Selected{
+    background-color: var(--text-color);
+    color: var(--text-white-color)
+}
+
+
+.Minicart-Attribute-AttributeSwatch-Option{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    user-select: none;
+
+}
+
+.Minicart-Attribute-AttributeSwatch-Option-Color,
+.Minicart-Attribute-AttributeSwatch-Option-Color-Selected{
+    height: 20px;
+    width: 20px;
+    margin-right: 5px;
+    border-radius: 100%;
+    border: 0.5px solid #9b9999;
+    z-index: 0;
+
+}
+
+
+.Minicart-Attribute-AttributeText-Option-Text,
+.Minicart-Attribute-AttributeSwatch-Option-Text
+{
+    font-family: 'Source Sans Pro';
+    letter-spacing: 0.03em;
+    font-size: 12px;
+
+}
+.Minicart-Attribute-AttributeSwatch-Option-Text{
+    font-size: 14px;
 }

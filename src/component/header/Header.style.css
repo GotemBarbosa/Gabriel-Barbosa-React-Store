@@ -91,10 +91,30 @@ margin-right: 4px;
     align-items: center;
     justify-content: center;
     background-color: transparent;
-    border: none
+    border: none;
+    position: relative;
 }
 
 .Header .Options .Options-Cart-btn .Options-Cart-btn-Indicator{
     height: 20px;
     width: 18px;
+}
+.Option-Cart-btn-QuantityIndicator{
+    position: absolute;
+    right: -9px;
+    top: 23px;
+    min-height: 20px;
+    min-width: 20px;
+    border-radius: 100%;
+    background-color: var(--text-color);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.Option-Cart-btn-QuantityIndicator-Text{
+    font-family: 'Roboto';
+    font-weight: 700;
+    font-size: 14px;
+    color: var(--text-white-color)
 }

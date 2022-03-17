@@ -30,7 +30,7 @@ class ItemAttribute extends React.Component {
                 onClick={()=>{this.changeSelection(key, 'text')}}
                 key={key}
               >
-                <p className="AttributeText-Option-Text">{item.displayValue}</p>
+                <p className="AttributeText-Option-Text">{item.value}</p>
               </button>
             ))}
           </div>

@@ -3,6 +3,7 @@ import { gql } from "@apollo/client";
 import { graphql } from "react-apollo";
 
 import { connect } from "react-redux";
+import { withRouter } from "../../utils/withRouter";
 
 import * as CategoryActions from "../../store/actions/Category";
 import CategoryButton from "../CategoryButton";
@@ -36,6 +37,9 @@ class Header extends React.Component {
   handleChangeActiveCategory(key, name) {
     this.setState({ categorySelected: key });
     this.props.dispatch(CategoryActions.changeCategory(key, name));
+    if(this.props.location.pathname !== '/'){
+      this.props.navigate(`/`)
+    }
   }
 
   displayCategories() {
@@ -151,4 +155,4 @@ export default connect((state) => ({
   category: state.category,
   currency: state.currency,
   cartItems: state.cart.cartItems,
-}))(graphql(getCatogories)(Header));
+}))(graphql(getCatogories)(withRouter(Header)));

@@ -43,13 +43,13 @@ const getNewProducts = gql`
 `;
 
 class ProductListing extends React.Component {
-
+  
   displayProducts() {
     const data = this.props.data;
     if (data.loading) {
       return <div>...</div>;
     }
-    return data.category.products.map((product, key) =><ProductCard key={product.id} data={product} currency={this.props.activeCurrency}/>);
+    return data.category.products.map((product) =><ProductCard key={product.id} data={product} currency={this.props.activeCurrency}/>);
   }
 
   render() {

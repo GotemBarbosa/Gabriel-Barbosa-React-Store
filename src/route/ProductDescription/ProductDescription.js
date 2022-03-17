@@ -91,6 +91,7 @@ class ProductDescription extends React.Component {
   }
 
   showAttributes(data) {
+    console.log(data.product.attributes)
       if(data.product.attributes.length === 0){
         return null
       }else{
@@ -113,7 +114,7 @@ class ProductDescription extends React.Component {
           }
         })
         if(!errorFinder){
-          this.props.dispatch(CartActions.addToCart({productId:data.product.id, attributes: this.state.attributes, type: this.state.type, quantity:1}))
+          this.props.dispatch(CartActions.addToCart({productId:data.product.id, attributes: this.state.attributes, quantity:1}))
         }
       }
     }else{
@@ -160,9 +161,15 @@ class ProductDescription extends React.Component {
               {data.product.prices[this.props.activeCurrency].currency.symbol}
               {data.product.prices[this.props.activeCurrency].amount}
             </p>
+            {data.product.inStock?
             <button className="ProductDescription-ProductInformation-PurchaseArea-Button" onClick={()=>{this.addToCart(data)}}>
               ADD TO CART
             </button>
+            :
+            <button className="ProductDescription-ProductInformation-PurchaseArea-Button-OutOfStock" onClick={()=>{}}>
+              OUT OF STOCK
+            </button>
+            }
           </div>
           <div className="ProductDescription-ProductInformation-Description">
             <p

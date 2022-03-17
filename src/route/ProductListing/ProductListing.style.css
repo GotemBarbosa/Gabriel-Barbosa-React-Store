@@ -21,5 +21,6 @@
     width: 100%;
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(var(--cardWidth), 1fr));
-    justify-items: center
+    justify-items: center;
+    margin-bottom: 15px;
 }

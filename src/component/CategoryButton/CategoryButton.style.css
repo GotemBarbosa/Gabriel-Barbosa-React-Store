@@ -15,7 +15,11 @@
     text-align: center;
     text-transform: uppercase;
     cursor: pointer;
+    transition: 0.2s;
 
+}
+.CategoryButton-btn:hover{
+    color: var(--active-color)
 }
 
 .CategoryButton-btn-active{

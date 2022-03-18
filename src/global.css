@@ -6,9 +6,11 @@
 :root{
     --background-color: #FFFFFF;
     --text-white-color: #FFFFFF;
+    --white-hover-color: #e9e8e8;
     --edge-margin: 20%;
     --text-color: #1D1F22;
     --active-color: #5ece7b;
+    --active-hover-color: #4fad68;
     --header-height:  80px;
     --gray-opacity: #39374885;
     --page-toHeader-margin: 80px;

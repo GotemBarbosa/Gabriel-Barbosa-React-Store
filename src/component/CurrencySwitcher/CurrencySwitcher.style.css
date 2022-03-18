@@ -37,14 +37,12 @@
     cursor: pointer;
     padding-left: 20px;
     color: var(--text-color);
-    border: none
+    border: none;
+    transition: 0.2s;
 }
 .CurrencySwitcher-Overlay .CurrencySwitcher-Overlay-Active-btn{
     background-color: rgb(245, 244, 244);
-    border-top: 0.5px solid var(--light-gray);
-    border-bottom: 0.5px solid var(--light-gray);
-    border-left: none;
-    border-right: none;
+    border: none;
     text-align: left;
     font-family: 'raleway';
     font-weight: 500;
@@ -54,6 +52,8 @@
     cursor: pointer;
     padding-left: 20px;
     color: var(--text-color);
+    transition: 0.2s;
+
 }
 
 .CurrencySwitcher-Overlay-btn:hover{

@@ -107,8 +107,15 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    cursor: pointer
+    cursor: pointer;
+    transition: 0.3s;
 }
+
+.Minicart-Products-Product-Quantity-PlusButton:hover,
+.Minicart-Products-Product-Quantity-MinusButton:hover{
+    background: var(--white-hover-color);
+}
+
 .Minicart-Products-Product-Quantity-PlusButton-Icon,
 .Minicart-Products-Product-Quantity-MinusButton-Icon{
     height: 12px;
@@ -171,8 +178,15 @@
     font-weight: 600;
     font-size: 14px;
     color: var(--text-color);
-    cursor: pointer
+    cursor: pointer;
+    transition: 0.3s;
+
 }
+
+.Minicart-Functions-ViewBagButton:hover{
+    background-color: var(--white-hover-color);
+}
+
 
 .Minicart-Functions-CheckOutButton{
     width: 48%;
@@ -184,8 +198,13 @@
     font-size: 14px;
     color: var(--text-white-color);
     cursor: pointer;
+    transition: 0.3s;
     
 }
+.Minicart-Functions-CheckOutButton:hover{
+    background-color: var(--active-hover-color);
+}
+
 
 .Minicart-Attribute{
     display: flex;

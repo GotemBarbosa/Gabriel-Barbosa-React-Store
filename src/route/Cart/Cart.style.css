@@ -18,6 +18,34 @@
     font-size: 32px;
     line-height: 125%;
 }
+.Cart-EmptyCart{
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+.Cart-EmptyCart-Title{
+    font-family: 'Raleway';
+    font-weight: 600;
+    font-size: 30px;
+    line-height: 160%;
+    color: var(--text-color);
+}
+.Cart-EmptyCart-Icon{
+    height: 50px;
+    margin: 10px 0;
+    user-select: none;
+}
+
+.Cart-EmptyCart-Tip{
+    margin: 10px 0 20px 0;
+    font-family: 'Raleway';
+    font-size: 18px;
+    font-weight: 500;
+    text-align: center;
+}
+
 .Cart-Products{
     display: flex;
     flex-direction: column;

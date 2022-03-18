@@ -5,6 +5,7 @@ import { gql } from "@apollo/client";
 import { graphql } from "react-apollo";
 
 import CartProduct from '../../component/CartProduct';
+import emptyCart from '../../assets/icons/empty-cart.svg'
 import './Cart.style.css'
 
 const getData = gql`
@@ -70,12 +71,21 @@ class Cart extends React.Component{
         }
         return(
             <div className='Cart'>
+                {this.props.cartItems.length === 0?
+                <div className='Cart-EmptyCart'>
+                  <img className="Cart-EmptyCart-Icon"  src={emptyCart} alt='Empty cart'/>
+                  <p className='Cart-EmptyCart-Title'>Your Cart is empty :(</p>
+                  <p className='Cart-EmptyCart-Tip'>Add some product to the Cart to appear here!</p>
+                </div>:
+                <>
                 <div className='Cart-Header'>
                     <p className='Cart-Header-Text'>CART</p>
                 </div>
                 <div className='Cart-Products'>
                     {this.showCartProducts()}
                 </div>
+                </>
+              }
             </div>
         )
     }

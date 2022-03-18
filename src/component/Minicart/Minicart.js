@@ -7,6 +7,7 @@ import { graphql } from "react-apollo";
 import { withRouter } from "../../utils/withRouter";
 
 import "./Minicart.styles.css";
+import emptyCartIcon from '../../assets/icons/empty-cart.svg'
 import minusIcon from "../../assets/icons/minus.svg";
 import plusIcon from "../../assets/icons/plus.svg";
 
@@ -204,6 +205,14 @@ class Minicart extends React.Component {
                 , {this.props.cartItems.length} items
               </p>
             </div>
+            {this.props.cartItems.length === 0?
+            <div className="Minicart-EmptyCart">
+                <img className="Minicart-EmptyCart-Icon"  src={emptyCartIcon} alt='Empty cart'/>
+                <p className="Minicart-EmptyCart-Title">Your Cart is empty  :(</p>
+                <p className="Minicart-EmptyCart-Tip">Add some product to the Cart to appear here!</p>
+            </div>
+            :
+            <>
             <div className="Minicart-Products">{this.showProducts(data)}</div>
             <div className="Minicart-TotalPrice">
               <p className="Minicart-TotalPrice-Label">Total</p>
@@ -226,9 +235,10 @@ class Minicart extends React.Component {
                 CHECK OUT
               </button>
             </div>
+            </>}
           </div>
         </div>
-      </div>
+        </div>
     );
   }
 }

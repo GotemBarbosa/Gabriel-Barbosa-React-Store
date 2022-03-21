@@ -1,6 +1,7 @@
 import React from "react";
 
-import { gql } from "@apollo/client";
+import { gql } from "apollo-boost";
+
 import { graphql } from "react-apollo";
 
 import { connect } from "react-redux";

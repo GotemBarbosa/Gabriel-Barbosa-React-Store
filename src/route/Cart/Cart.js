@@ -1,7 +1,7 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { gql } from "@apollo/client";
+import { gql } from "apollo-boost";
 import { graphql } from "react-apollo";
 
 import CartProduct from '../../component/CartProduct';
@@ -94,5 +94,11 @@ class Cart extends React.Component{
 export default connect((state) => ({
     cartItems: state.cart.cartItems,
     activeCurrency: state.currency.activeCurrency,
-  }))(graphql(getData)(Cart));
+  }))(graphql(getData,{
+    options: ()=>{
+      return{
+      fetchPolicy: "no-cache" 
+      }
+    }
+  })(Cart));
   

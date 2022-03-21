@@ -42,7 +42,7 @@ class CartProduct extends React.Component {
                         key={key}
                       >
                         <p className="Product-AttributeText-Option-Text">
-                          {itemAttributeSelection.displayValue}
+                          {itemAttributeSelection.value}
                         </p>
                       </button>
                     </div>

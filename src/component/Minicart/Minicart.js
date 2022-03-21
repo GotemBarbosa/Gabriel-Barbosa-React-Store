@@ -1,7 +1,7 @@
 import React from "react";
 import { connect } from "react-redux";
 import * as CartActions from "../../store/actions/Cart";
-import { gql } from "@apollo/client";
+import { gql } from "apollo-boost";
 import { graphql } from "react-apollo";
 
 import { withRouter } from "../../utils/withRouter";
@@ -61,7 +61,7 @@ class Minicart extends React.Component {
                         key={key}
                       >
                         <p className="Minicart-Attribute-AttributeText-Option-Text">
-                          {itemAttributeSelection.displayValue}
+                          {itemAttributeSelection.value}
                         </p>
                       </button>
                     </div>
@@ -238,7 +238,7 @@ class Minicart extends React.Component {
             </>}
           </div>
         </div>
-        </div>
+      </div>
     );
   }
 }
@@ -246,4 +246,10 @@ class Minicart extends React.Component {
 export default connect((state) => ({
   cartItems: state.cart.cartItems,
   activeCurrency: state.currency.activeCurrency,
-}))(graphql(getData)(withRouter(Minicart)));
+}))(graphql(getData,{
+  options: ()=>{
+    return{
+    fetchPolicy: "no-cache" 
+    }
+  }
+})(withRouter(Minicart)));

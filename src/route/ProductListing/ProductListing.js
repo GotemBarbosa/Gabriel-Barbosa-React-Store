@@ -1,5 +1,5 @@
 import React from "react";
-import { gql } from "@apollo/client";
+import { gql } from "apollo-boost";
 import { graphql } from "react-apollo";
 
 import { connect } from "react-redux";
@@ -9,7 +9,7 @@ import "./ProductListing.style.css";
 import ProductCard from "../../component/ProductCard";
 
 const getNewProducts = gql`
-  query ($type: String!) {
+  query getProducts($type: String!) {
     category(input: { title: $type }) {
       name
       products {
@@ -49,6 +49,7 @@ class ProductListing extends React.Component {
     if (data.loading) {
       return <div>...</div>;
     }
+    console.log(data.category.products)
     return data.category.products.map((product) =><ProductCard key={product.id} data={product} currency={this.props.activeCurrency}/>);
   }
 
@@ -74,6 +75,7 @@ export default connect((state) => ({
       return {
         variables: {
           type: props.categoryName,
+          fetchPolicy: "no-cache" 
         },
       };
     },

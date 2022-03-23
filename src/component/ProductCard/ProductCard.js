@@ -1,7 +1,9 @@
 import React from "react";
 import { withRouter } from "../../utils/withRouter";
 import "./ProductCard.style.css";
+import Notification from "../Notifcation";
 import CartIcon from "../../assets/icons/white-cart.svg"
+import checkIcon from '../../assets/images/check.png'
 
 import { connect } from "react-redux";
 import * as CartActions from '../../store/actions/Cart';
@@ -10,12 +12,31 @@ class ProductCard extends React.Component {
   constructor() {
     super();
     this.handleChangePage = this.handleChangePage.bind(this);
+    this.state={
+      notificationData: {},
+      showNotification: false,
+    }
+  }
+
+    
+  handleCloseNotification(e){
+    this.setState({showNotification: false})
+    e.stopPropagation()
+    
   }
 
   handleChangePage() {
     this.props.navigate(`/productdescription/${this.props.data.id}`);
   }
+
   handleAddToCart(e){
+    this.setState({notificationData:{
+      title: 'Success',
+      description: ` ${this.props.data.name} added to the cart`,
+      color: '#5ece7b',
+      icon: checkIcon
+    },
+    showNotification: true})
     this.props.dispatch(CartActions.addToCart({productId:this.props.data.id, attributes: [], quantity:1}))
     e.stopPropagation()
   }
@@ -23,6 +44,9 @@ class ProductCard extends React.Component {
   render() {
     return (
       <div className="ProductCard" onClick={(e)=>{e.stopPropagation();this.handleChangePage()}}>
+        {
+          this.state.showNotification?<Notification data={this.state.notificationData} onClose={(e)=>{this.handleCloseNotification(e)}}/>:null
+        }
         <div className="ProductCard-ImageArea">
           <img
             className="ProductCard-ImageArea-Image"

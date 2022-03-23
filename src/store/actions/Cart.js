@@ -12,3 +12,9 @@ export function updateCartQuantity(cartItemId,newQuantity){
         newQuantity   
     }
 }
+export function deleteInCart(cartItem){
+    return{
+        type: "DELETE_IN_CART",
+        cartItem, 
+    }
+}

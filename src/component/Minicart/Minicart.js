@@ -54,11 +54,11 @@ class Minicart extends React.Component {
             if (cartItemAttribute.selected === key) {
               if (cartItemAttribute.type === "text") {
                 return (
-                  <div className="Minicart-Attribute">
+                  <div className="Minicart-Attribute" key = {key}>
                     <div className="Minicart-Attribute-AttributeText">
                       <button
                         className="Minicart-Attribute-AttributeText-Option-Selected"
-                        key={key}
+                        
                       >
                         <p className="Minicart-Attribute-AttributeText-Option-Text">
                           {itemAttributeSelection.value}
@@ -70,15 +70,15 @@ class Minicart extends React.Component {
               }
               if (cartItemAttribute.type === "swatch") {
                 return (
-                  <div className="Minicart-Attribute">
+                  <div className="Minicart-Attribute"  key = {key}>
                     <div className="Minicart-Attribute-AttributeSwatch">
-                      <div className="Minicart-Attribute-AttributeSwatch-Option" key={key}>
+                      <div className="Minicart-Attribute-AttributeSwatch-Option">
                         <button
                           className="Minicart-Attribute-AttributeSwatch-Option-Color-Selected"
                           style={{
                             backgroundColor: `${itemAttributeSelection.value}`,
                           }}
-                          key={key}
+        
                         />
                         <p className="Minicart-Attribute-AttributeSwatch-Option-Text">
                           {itemAttributeSelection.displayValue}
@@ -97,85 +97,100 @@ class Minicart extends React.Component {
   }
 
   showProducts(data) {
+    
     return this.props.cartItems.map((cartItem, key) => {
       return data.category.products.map((item) => {
-        if (item.id === cartItem.productId && cartItem.quantity !== 0) {
-          return (
-            <div className="Minicart-Products-Product" key={key}>
-              <div className="Minicart-Products-Product-Information">
-                <div className="Minicart-Products-Product-Information-Indentification">
-                  <p className="Minicart-Products-Product-Information-Indentification-Brand">
-                    {item.brand}
-                  </p>
-                  <p className="Minicart-Products-Product-Information-Indentification-Name">
-                    {item.name}
-                  </p>
+        if(cartItem){
+          if (item.id === cartItem.productId && cartItem.quantity !== 0 ) {
+            return (
+              <div className="Minicart-Products-Product" key={key}>
+                <div className="Minicart-Products-Product-Information">
+                  <div className="Minicart-Products-Product-Information-Indentification">
+                    <p className="Minicart-Products-Product-Information-Indentification-Brand">
+                      {item.brand}
+                    </p>
+                    <p className="Minicart-Products-Product-Information-Indentification-Name">
+                      {item.name}
+                    </p>
+                  </div>
+                  <div className="Minicart-Products-Product-Information-Value">
+                    <p className="Minicart-Products-Product-Information-Value-Label">
+                      {item.prices[this.props.activeCurrency].currency.symbol}
+                      {item.prices[this.props.activeCurrency].amount}
+                    </p>
+                  </div>
+                  <div className="Minicart-Products-Product-Information-Attributes">
+                    {this.showAttributes(cartItem, item)}
+                  </div>
                 </div>
-                <div className="Minicart-Products-Product-Information-Value">
-                  <p className="Minicart-Products-Product-Information-Value-Label">
-                    {item.prices[this.props.activeCurrency].currency.symbol}
-                    {item.prices[this.props.activeCurrency].amount}
+                <div className="Minicart-Products-Product-Quantity">
+                  <button
+                    className="Minicart-Products-Product-Quantity-PlusButton"
+                    onClick={() => {
+                      this.props.dispatch(
+                        CartActions.updateCartQuantity(key, cartItem.quantity + 1)
+                      );
+                      //localStorage.setItem('CART', JSON.stringify(this.props.cartItems))
+                    }}
+                  >
+                    <img
+                      src={plusIcon}
+                      className="Minicart-Products-Product-Quantity-PlusButton-Icon"
+                      alt="plus"
+                    />
+                  </button>
+                  <p className="Minicart-Products-Product-Quantity-CurrentQuantity">
+                    {cartItem.quantity}
                   </p>
+                  <button
+                    className="Minicart-Products-Product-Quantity-MinusButton"
+                    onClick={() => {
+                      if(cartItem.quantity == 1){
+                        this.props.dispatch(
+                          CartActions.deleteInCart(cartItem)
+                        );
+                        //localStorage.setItem('CART', JSON.stringify(this.props.cartItems))
+                      }else{
+                        this.props.dispatch(
+                          CartActions.updateCartQuantity(key, cartItem.quantity - 1)
+                        );
+                        //localStorage.setItem('CART', JSON.stringify(this.props.cartItems))
+                      }
+                    }}
+                  >
+                    <img
+                      src={minusIcon}
+                      className="Minicart-Products-Product-Quantity-MinusButton-Icon"
+                      alt="minus"
+                    />
+                  </button>
                 </div>
-                <div className="Minicart-Products-Product-Information-Attributes">
-                  {this.showAttributes(cartItem, item)}
-                </div>
-              </div>
-              <div className="Minicart-Products-Product-Quantity">
-                <button
-                  className="Minicart-Products-Product-Quantity-PlusButton"
-                  onClick={() => {
-                    this.props.dispatch(
-                      CartActions.updateCartQuantity(key, cartItem.quantity + 1)
-                    );
-                  }}
-                >
+                <div className="Minicart-Products-Product-ImageArea">
                   <img
-                    src={plusIcon}
-                    className="Minicart-Products-Product-Quantity-PlusButton-Icon"
-                    alt="plus"
+                    src={item.gallery[0]}
+                    className="Minicart-Products-Product-ImageArea-Image"
+                    alt="Product"
                   />
-                </button>
-                <p className="Minicart-Products-Product-Quantity-CurrentQuantity">
-                  {cartItem.quantity}
-                </p>
-                <button
-                  className="Minicart-Products-Product-Quantity-MinusButton"
-                  onClick={() => {
-                    this.props.dispatch(
-                      CartActions.updateCartQuantity(key, cartItem.quantity - 1)
-                    );
-                  }}
-                >
-                  <img
-                    src={minusIcon}
-                    className="Minicart-Products-Product-Quantity-MinusButton-Icon"
-                    alt="minus"
-                  />
-                </button>
+                </div>
               </div>
-              <div className="Minicart-Products-Product-ImageArea">
-                <img
-                  src={item.gallery[0]}
-                  className="Minicart-Products-Product-ImageArea-Image"
-                  alt="Product"
-                />
-              </div>
-            </div>
-          );
+            );
+          }
         }
         return null;
       });
-    });
+    }
+    );
   }
 
   getFullPrice(data) {
     let price = 0;
     this.props.cartItems.map((cartItem) =>
       data.category.products.map((item) => {
-        if (item.id === cartItem.productId) {
-          return (price +=
-            item.prices[this.props.activeCurrency].amount * cartItem.quantity);
+        if(cartItem){
+          if (item.id === cartItem.productId) {
+            return (price +=
+              item.prices[this.props.activeCurrency].amount * cartItem.quantity);
+          }
         }
       })
     );

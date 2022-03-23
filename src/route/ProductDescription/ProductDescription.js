@@ -9,6 +9,9 @@ import * as CartActions from '../../store/actions/Cart'
 import { withRouter } from "../../utils/withRouter";
 import ItemAttribute from "../../component/ItemAttribute";
 import "./ProductDescription.style.css";
+import errorIcon from '../../assets/images/error.png'
+import checkIcon from '../../assets/images/check.png'
+import Notification from "../../component/Notifcation";
 
 const getProduct = gql`
   query ($id: String!) {
@@ -47,9 +50,17 @@ class ProductDescription extends React.Component {
     this.state = {
       currentImage: 0,
       attributes: [],
+      notificationData: {},
+      showNotification: false,
     };
     this.attributesData = this.attributesData.bind(this)
   }
+
+  handleCloseNotification(){
+    this.setState({showNotification: false})
+  }
+
+
   showProductImages(data) {
     return data.product.gallery.map((imageURL, key) => (
       <img
@@ -91,7 +102,6 @@ class ProductDescription extends React.Component {
   }
 
   showAttributes(data) {
-    console.log(data.product.attributes)
       if(data.product.attributes.length === 0){
         return null
       }else{
@@ -104,21 +114,45 @@ class ProductDescription extends React.Component {
     let errorFinder = false
     
     if(data.product.attributes.length !== 0){
+      // when the user hasn't even clicked on the attribute
       if(data.product.attributes.length !== this.state.attributes.length){
-        return alert('erro')
+        return(this.setState({notificationData:{
+          title: 'Error',
+          description: 'Do not forget to choose all posible attributes',
+          color: '#d9534f',
+          icon: errorIcon
+        },
+        showNotification: true}))
       }else{
         this.state.attributes.map((item)=>{
+          // when the user removed the selection from the attribute
           if(item.selected === null){
             errorFinder = true
-            return alert('erro2')
+            return(this.setState({notificationData:{
+              title: 'Error',
+              description: 'Do not forget to choose all posible attributes',
+              color: '#d9534f',
+              icon: errorIcon
+            },
+            showNotification: true}))
           }
         })
         if(!errorFinder){
           this.props.dispatch(CartActions.addToCart({productId:data.product.id, attributes: this.state.attributes, quantity:1}))
+          return(this.setState({notificationData:{
+            title: 'Success',
+            description: ` ${data.product.name} added to the cart`,
+            color: '#5ece7b',
+            icon: checkIcon
+          },
+          showNotification: true}))
+          //localStorage.setItem('CART', JSON.stringify(data))
+
         }
       }
     }else{
       this.props.dispatch(CartActions.addToCart({productId:data.product.id, attributes: [], quantity:1}))
+      
     }
   }
 
@@ -129,6 +163,13 @@ class ProductDescription extends React.Component {
     }
     return (
       <div className="ProductDescription">
+        {
+          this.state.showNotification?<Notification data={this.state.notificationData}
+          onClose={()=>{this.handleCloseNotification()}}
+          />:null
+        }
+        
+
         <div className="ProductDescription-ImageArea">
           <div className="ProductDescription-ImaegeArea-ShowcaseOptions">
             {this.showProductImages(data)}

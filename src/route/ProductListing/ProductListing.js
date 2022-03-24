@@ -54,6 +54,7 @@ class ProductListing extends React.Component {
 
   render() {
     // localStorage.clear()
+    // console.log(JSON.parse(localStorage.getItem('CART')))
     return (
       <div className="ProductListing">
         <div className="ProductListing-CategoryTitle">
@@ -75,8 +76,8 @@ export default connect((state) => ({
       return {
         variables: {
           type: props.categoryName,
-          fetchPolicy: "no-cache" 
         },
+        fetchPolicy: "no-cache" 
       };
     },
   })(ProductListing)

@@ -264,7 +264,7 @@ export default connect((state) => ({
 }))(graphql(getData,{
   options: ()=>{
     return{
-    fetchPolicy: "no-cache" 
+      fetchPolicy: "no-cache" 
     }
   }
 })(withRouter(Minicart)));

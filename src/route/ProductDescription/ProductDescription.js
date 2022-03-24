@@ -53,6 +53,7 @@ class ProductDescription extends React.Component {
       notificationData: {},
       showNotification: false,
     };
+    this.attributes = []
     this.attributesData = this.attributesData.bind(this)
   }
 
@@ -75,28 +76,29 @@ class ProductDescription extends React.Component {
     ));
   }
   attributesData(data){
-    if(this.state.attributes){
+    if(this.attributes){
       let getSameItem = false
       let itemKey = null
-      this.state.attributes.map((item,key)=>{
+
+      this.attributes.map((item, key)=>{
         if(item.id === data.id){
           getSameItem = true
           itemKey = key
         }
+
       })
+
+      // this.state.attributes.map((item,key)=>{
+      // })
       if(getSameItem === true){
-        const tempAttributes = this.state.attributes
+        const tempAttributes = this.attributes
         tempAttributes.splice(itemKey,1,data)
-        this.setState({attributes: tempAttributes})
+        this.attributes = tempAttributes
       }else{
-        this.setState({
-          attributes: [...this.state.attributes, data]
-        })
+        this.attributes = [...this.attributes, data]
       }
     }else{
-      this.setState({
-        attributes: [data]
-      })
+      this.attributes = [data]
     }
 
   }
@@ -106,7 +108,7 @@ class ProductDescription extends React.Component {
         return null
       }else{
         return data.product.attributes.map((attribute, key) => {
-          return <ItemAttribute attribute={attribute} key={key} id={attribute.id} attributesData={this.attributesData}/>;
+          return <ItemAttribute attribute={attribute} key={key} id={attribute.id} attributesData={(data)=>{this.attributesData(data)}}/>;
         }); 
       }
   }
@@ -115,7 +117,7 @@ class ProductDescription extends React.Component {
     
     if(data.product.attributes.length !== 0){
       // when the user hasn't even clicked on the attribute
-      if(data.product.attributes.length !== this.state.attributes.length){
+      if(data.product.attributes.length !== this.attributes.length){
         return(this.setState({notificationData:{
           title: 'Error',
           description: 'Do not forget to choose all posible attributes',
@@ -124,7 +126,7 @@ class ProductDescription extends React.Component {
         },
         showNotification: true}))
       }else{
-        this.state.attributes.map((item)=>{
+        this.attributes.map((item)=>{
           // when the user removed the selection from the attribute
           if(item.selected === null){
             errorFinder = true
@@ -138,21 +140,22 @@ class ProductDescription extends React.Component {
           }
         })
         if(!errorFinder){
-          this.props.dispatch(CartActions.addToCart({productId:data.product.id, attributes: this.state.attributes, quantity:1}))
-          return(this.setState({notificationData:{
+          this.setState({notificationData:{
             title: 'Success',
             description: ` ${data.product.name} added to the cart`,
             color: '#5ece7b',
             icon: checkIcon
           },
-          showNotification: true}))
-          //localStorage.setItem('CART', JSON.stringify(data))
+          showNotification: true})
+          const attribute = this.attributes
+          console.log(this.props.cartItems)
+          return this.props.dispatch(CartActions.addToCart({productId:data.product.id, attributes: attribute, quantity:1}))
 
         }
       }
     }else{
       this.props.dispatch(CartActions.addToCart({productId:data.product.id, attributes: [], quantity:1}))
-      
+      return null
     }
   }
 
@@ -226,6 +229,7 @@ class ProductDescription extends React.Component {
 
 export default connect((state) => ({
   activeCurrency: state.currency.activeCurrency,
+  cartItems: state.cart.cartItems
 }))(
   withRouter(
     graphql(getProduct, {

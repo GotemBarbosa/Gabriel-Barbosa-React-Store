@@ -6,7 +6,7 @@ import { graphql } from "react-apollo";
 
 import CartProduct from '../../component/CartProduct';
 import emptyCart from '../../assets/icons/empty-cart.svg'
-import './Cart.style.css'
+import './Cart.style.scss'
 
 const getData = gql`
   {

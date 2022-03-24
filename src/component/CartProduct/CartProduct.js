@@ -7,7 +7,7 @@ import arrowRight from "../../assets/icons/arrow-right-white.svg";
 import minusIcon from "../../assets/icons/minus.svg";
 import plusIcon from "../../assets/icons/plus.svg";
 
-import "./CartProduct.style.css";
+import "./CartProduct.style.scss";
 
 class CartProduct extends React.Component {
   constructor() {
@@ -36,12 +36,12 @@ class CartProduct extends React.Component {
               if (cartItemAttribute.type === "text") {
                 return (
                   <div className="Product-Attribute">
-                    <div className="Product-AttributeText">
+                    <div className="Product-Attribute-AttributeText">
                       <button
-                        className="Product-AttributeText-Option-Selected"
+                        className="Product-Attribute-AttributeText-Option-Selected"
                         key={key}
                       >
-                        <p className="Product-AttributeText-Option-Text">
+                        <p className="Product-Attribute-AttributeText-Option-Text">
                           {itemAttributeSelection.value}
                         </p>
                       </button>
@@ -52,16 +52,16 @@ class CartProduct extends React.Component {
               if (cartItemAttribute.type === "swatch") {
                 return (
                   <div className="Product-Attribute">
-                    <div className="Product-AttributeSwatch">
-                      <div className="Product-AttributeSwatch-Option" key={key}>
+                    <div className="Product-Attribute-AttributeSwatch">
+                      <div className="Product-Attribute-AttributeSwatch-Option" key={key}>
                         <button
-                          className="Product-AttributeSwatch-Option-Color-Selected"
+                          className="Product-Attribute-AttributeSwatch-Option-Color-Selected"
                           style={{
                             backgroundColor: `${itemAttributeSelection.value}`,
                           }}
                           key={key}
                         />
-                        <p className="Product-AttributeSwatch-Option-Text">
+                        <p className="Product-Attribute-AttributeSwatch-Option-Text">
                           {itemAttributeSelection.displayValue}
                         </p>
                       </div>
@@ -81,11 +81,11 @@ class CartProduct extends React.Component {
     return (
       <div className="Product">
         <div className="Product-Information">
-          <div className="Product-Information-Indentification">
-            <p className="Product-Information-Indentification-Brand">
+          <div className="Product-Information-Identification">
+            <p className="Product-Information-Identification-Brand">
               {this.props.item.brand}
             </p>
-            <p className="Product-Information-Indentification-Name">
+            <p className="Product-Information-Identification-Name">
               {this.props.item.name}
             </p>
           </div>

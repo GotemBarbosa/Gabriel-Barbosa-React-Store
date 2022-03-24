@@ -1,0 +1,167 @@
+.Product{
+    width: 90%;
+    display: grid;
+    grid-template-columns: 3.5fr 0.5fr 1fr;
+    border-top: 1px solid var(--light-gray);
+    padding: 20px 0;
+
+    &-Information{
+
+        &-Identification{
+            margin-bottom: 10px;
+
+            &-Brand,
+            &-Name
+            {
+                font-family: 'Raleway';
+                font-size: 30px;
+                line-height: 160%;
+                color: var(--black)
+            }
+
+            &-Brand{
+                font-weight: 600;
+            }
+            &-Name{
+                font-weight: 400;
+            }
+        }
+
+        &-Value{
+            margin-bottom: 10px;
+
+            &-Label{
+                font-family: 'Raleway';
+                font-weight: 700;
+                font-size: 24px;
+                line-height: 160%;
+                color: var(--black)
+            }
+        }
+    }
+
+    &-Quantity{
+        display: flex;
+        flex-direction: column;
+        justify-content: space-between;
+        align-items: center;
+        margin-right: 10px;
+
+        &-PlusButton,
+        &-MinusButton{
+            width: 40px;
+            height: 40px;
+            background: transparent;
+            border: 1px solid var(--black);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: pointer;
+            transition: 0.3s;
+
+            &:hover{
+                background-color: var(--white-hover);
+            }
+        }
+
+        &-CurrentQuantity{
+            font-family: 'Raleway';
+            font-weight: 500;
+            font-size: 24px;
+            color: var(--black)
+        }
+    }
+
+    &-ImageArea{
+        display: flex;
+        justify-content: center;
+        align-items: center;
+        position: relative;
+
+        &-Image{
+            max-height: auto;
+            max-width: 100%; 
+        }
+
+        &-ArrowLeft{
+            position: absolute;
+            height: 30px;
+            left: 0;
+            cursor: pointer;
+        }
+
+        &-ArrowRight{
+            position: absolute;
+            height: 30px;
+            right: 0;
+            cursor: pointer;
+        }
+    }
+    
+    &-Attribute{
+        display: flex;
+        flex-direction: column;
+        margin-top: 20px;
+
+        &-AttributeText{
+            display: flex;
+            flex-direction: row;
+            margin-top: 5px;
+            &-Option,
+            &-Option-Selected{
+                padding: 0 15px;
+                height: 45px;
+                border: 1px solid var(--black);
+                display: flex;
+                justify-content: center;
+                align-items: center;
+                margin-right: 10px;
+                user-select: none;
+                background: transparent;
+                transition: 0.3s;
+                cursor: pointer;
+
+                &-Selected{
+                    background-color: var(--black);
+                    color: var(--white)
+                }
+                &-Text{
+                    font-family: 'Source Sans Pro';
+                    letter-spacing: 0.03em;
+                }
+            }
+        }
+
+        &-AttributeSwatch{
+            display: flex;
+            flex-direction: row;
+            margin-top: 5px;
+            
+            &-Option{
+                padding: 0 15px;
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                user-select: none;
+
+                &-Color,
+                &-Color-Selected{
+                    height: 25px;
+                    width: 25px;
+                    margin-right: 5px;
+                    border-radius: 100%;
+                    border: 0.5px solid var(--gray);
+                    margin-bottom: 5px;
+                    z-index: 0;
+                    cursor: pointer;
+                }
+                &-Text{
+                    font-family: 'Source Sans Pro';
+                    letter-spacing: 0.03em;
+                    font-size: 14px;
+                }
+            }
+        }
+    }
+
+}

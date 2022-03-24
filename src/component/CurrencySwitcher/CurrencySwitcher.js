@@ -8,7 +8,7 @@ import { connect } from "react-redux";
 
 import * as CurrencyActions from "../../store/actions/Currency";
 
-import "./CurrencySwitcher.style.css";
+import "./CurrencySwitcher.style.scss";
 
 const getCurrencies = gql`
   {
@@ -35,8 +35,8 @@ class CurrencySwitcher extends React.Component {
           key={key}
           className={
             key === this.props.currency.activeCurrency
-              ? "CurrencySwitcher-Overlay-Active-btn"
-              : "CurrencySwitcher-Overlay-btn"
+              ? "CurrencySwitcher-Overlay-Button-Active"
+              : "CurrencySwitcher-Overlay-Button"
           }
           onClick={() => {
             this.handleChangeActiveCurrency(key, currency.symbol);

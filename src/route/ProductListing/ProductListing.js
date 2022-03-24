@@ -5,7 +5,7 @@ import { graphql } from "react-apollo";
 import { connect } from "react-redux";
 
 
-import "./ProductListing.style.css";
+import "./ProductListing.style.scss";
 import ProductCard from "../../component/ProductCard";
 
 const getNewProducts = gql`

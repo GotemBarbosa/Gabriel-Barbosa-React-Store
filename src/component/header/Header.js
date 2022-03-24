@@ -11,7 +11,7 @@ import Cart from "../../assets/icons/cart.svg";
 import CurrencySwitcher from "../CurrencySwitcher";
 import Minicart from "../Minicart";
 
-import "./Header.style.css";
+import "./Header.style.scss";
 import Logo from "../../assets/images/logo.svg";
 import ArrowDown from "../../assets/icons/arrow-down.svg";
 import ArrowUp from "../../assets/icons/arrow-up.svg";
@@ -83,32 +83,32 @@ class Header extends React.Component {
     }
     return (
       <div className="Header">
-        <div className="Categories">{this.displayCategories()}</div>
-        <div className="Logo">
-          <img className="Logo-Image" src={Logo} alt="Logo image"></img>
+        <div className="Header-Categories">{this.displayCategories()}</div>
+        <div className="Header-Logo">
+          <img className="Header-Logo-Image" src={Logo} alt="Logo image"></img>
         </div>
 
-        <div className="Options">
-          <div className="Options-Currency">
+        <div className="Header-Options">
+          <div className="Header-Options-Currency">
             <button
-              className="Options-Currency-btn"
+              className="Header-Options-Currency-Button"
               onClick={() => {
                 this.showCurrencySwitcherOptions();
               }}
             >
-              <div className="Options-Currency-btn-Label">
+              <div className="Header-Options-Currency-Button-Label">
                 {this.props.currency.activeCurrencySymbol}
               </div>
-              <div className="Options-Currency-btn-Indicator">
+              <div className="Header-Options-Currency-Button-Indicator">
                 {this.state.currentSwitcherSelected === true ? (
                   <img
-                    className="Options-Currency-btn-Indicator-Arrow"
+                    className="Header-Options-Currency-Button-Indicator-Arrow"
                     alt="Arrow Up icon"
                     src={ArrowUp}
                   />
                 ) : (
                   <img
-                    className="Options-Currency-btn-Indicator-Arrow"
+                    className="Header-Options-Currency-Button-Indicator-Arrow"
                     alt="Arrow Down icon "
                     src={ArrowDown}
                   />
@@ -123,19 +123,19 @@ class Header extends React.Component {
               />
             ) : null}
           </div>
-          <div className="Options-Cart">
+          <div className="Header-Options-Cart">
             <button
-              className="Options-Cart-btn"
+              className="Header-Options-Cart-Button"
               onClick={() => {
                 this.showMinicart();
               }}
             >
               <img
-                className="Option-Cart-btn-Indicator"
+                className="Header-Options-Cart-Button-Indicator"
                 alt="Cart icon"
                 src={Cart}
               />
-              {this.props.cartItems.length>0?<div className="Option-Cart-btn-QuantityIndicator"><p className="Option-Cart-btn-QuantityIndicator-Text">{this.props.cartItems.length}</p></div>:null}
+              {this.props.cartItems.length>0?<div className="Header-Options-Cart-Button-QuantityIndicator"><p className="Header-Options-Cart-Button-QuantityIndicator-Text">{this.props.cartItems.length}</p></div>:null}
             </button>
             {this.state.currentMinicartSelected === true ? (
               <Minicart

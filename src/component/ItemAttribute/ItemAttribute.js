@@ -1,5 +1,5 @@
 import React from "react";
-import "./ItemAttribute.style.css";
+import "./ItemAttribute.style.scss";
 
 class ItemAttribute extends React.Component {
   constructor() {
@@ -23,14 +23,14 @@ class ItemAttribute extends React.Component {
       return (
         <div className="Attribute">
           <p className="Attribute-Title">{this.props.attribute.name}:</p>
-          <div className="AttributeText">
+          <div className="Attribute-AttributeText">
             {this.props.attribute.items.map((item, key) => (
               <button
-                className={this.state.selected === key?"AttributeText-Option-Selected":"AttributeText-Option"}
+                className={this.state.selected === key?"Attribute-AttributeText-Option-Selected":"Attribute-AttributeText-Option"}
                 onClick={()=>{this.changeSelection(key, 'text')}}
                 key={key}
               >
-                <p className="AttributeText-Option-Text">{item.value}</p>
+                <p className="Attribute-AttributeText-Option-Text">{item.value}</p>
               </button>
             ))}
           </div>
@@ -41,16 +41,16 @@ class ItemAttribute extends React.Component {
       return (
         <div className="Attribute">
           <p className="Attribute-Title">{this.props.attribute.name}:</p>
-          <div className="AttributeSwatch">
+          <div className="Attribute-AttributeSwatch">
             {this.props.attribute.items.map((item, key) => (
-              <div className="AttributeSwatch-Option" key={key}>
+              <div className="Attribute-AttributeSwatch-Option" key={key}>
                 <button
-                  className={this.state.selected === key?"AttributeSwatch-Option-Color-Selected":"AttributeSwatch-Option-Color"}
+                  className={this.state.selected === key?"Attribute-AttributeSwatch-Option-Color-Selected":"Attribute-AttributeSwatch-Option-Color"}
                   style={{ backgroundColor: `${item.value}` }}
                   onClick={(()=>{this.changeSelection(key, 'swatch')})}
                   key={key}
                 />
-                <p className="AttributeSwatch-Option-Text">
+                <p className="Attribute-AttributeSwatch-Option-Text">
                   {item.displayValue}
                 </p>
               </div>

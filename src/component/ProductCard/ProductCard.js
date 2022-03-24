@@ -1,6 +1,6 @@
 import React from "react";
 import { withRouter } from "../../utils/withRouter";
-import "./ProductCard.style.css";
+import "./ProductCard.style.scss";
 import Notification from "../Notifcation";
 import CartIcon from "../../assets/icons/white-cart.svg"
 import checkIcon from '../../assets/images/check.png'

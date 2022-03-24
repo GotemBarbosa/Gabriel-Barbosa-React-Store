@@ -6,7 +6,7 @@ import { graphql } from "react-apollo";
 
 import { withRouter } from "../../utils/withRouter";
 
-import "./Minicart.styles.css";
+import "./Minicart.styles.scss";
 import emptyCartIcon from '../../assets/icons/empty-cart.svg'
 import minusIcon from "../../assets/icons/minus.svg";
 import plusIcon from "../../assets/icons/plus.svg";
@@ -54,13 +54,13 @@ class Minicart extends React.Component {
             if (cartItemAttribute.selected === key) {
               if (cartItemAttribute.type === "text") {
                 return (
-                  <div className="Minicart-Attribute" key = {key}>
-                    <div className="Minicart-Attribute-AttributeText">
+                  <div className="Minicart-Products-Product-Information-Attributes-Attribute" key = {key}>
+                    <div className="Minicart-Products-Product-Information-Attributes-Attribute-AttributeText">
                       <button
-                        className="Minicart-Attribute-AttributeText-Option-Selected"
+                        className="Minicart-Products-Product-Information-Attributes-Attribute-AttributeText-Option-Selected"
                         
                       >
-                        <p className="Minicart-Attribute-AttributeText-Option-Text">
+                        <p className="Minicart-Products-Product-Information-Attributes-Attribute-AttributeText-Option-Text">
                           {itemAttributeSelection.value}
                         </p>
                       </button>
@@ -70,17 +70,17 @@ class Minicart extends React.Component {
               }
               if (cartItemAttribute.type === "swatch") {
                 return (
-                  <div className="Minicart-Attribute"  key = {key}>
-                    <div className="Minicart-Attribute-AttributeSwatch">
-                      <div className="Minicart-Attribute-AttributeSwatch-Option">
+                  <div className="Minicart-Products-Product-Information-Attributes-Attribute"  key = {key}>
+                    <div className="Minicart-Products-Product-Information-Attributes-Attribute-AttributeSwatch">
+                      <div className="Minicart-Products-Product-Information-Attributes-Attribute-AttributeSwatch-Option">
                         <button
-                          className="Minicart-Attribute-AttributeSwatch-Option-Color-Selected"
+                          className="Minicart-Products-Product-Information-Attributes-Attribute-AttributeSwatch-Option-Color-Selected"
                           style={{
                             backgroundColor: `${itemAttributeSelection.value}`,
                           }}
         
                         />
-                        <p className="Minicart-Attribute-AttributeSwatch-Option-Text">
+                        <p className="Minicart-Products-Product-Information-Attributes-Attribute-AttributeSwatch-Option-Text">
                           {itemAttributeSelection.displayValue}
                         </p>
                       </div>
@@ -105,11 +105,11 @@ class Minicart extends React.Component {
             return (
               <div className="Minicart-Products-Product" key={key}>
                 <div className="Minicart-Products-Product-Information">
-                  <div className="Minicart-Products-Product-Information-Indentification">
-                    <p className="Minicart-Products-Product-Information-Indentification-Brand">
+                  <div className="Minicart-Products-Product-Information-Identification">
+                    <p className="Minicart-Products-Product-Information-Identification-Brand">
                       {item.brand}
                     </p>
-                    <p className="Minicart-Products-Product-Information-Indentification-Name">
+                    <p className="Minicart-Products-Product-Information-Identification-Name">
                       {item.name}
                     </p>
                   </div>
@@ -215,7 +215,7 @@ class Minicart extends React.Component {
             }}
           >
             <div className="Minicart-Header">
-              <p className="Minicart-Header-Indentificantion">My Bag</p>
+              <p className="Minicart-Header-Identification">My Bag</p>
               <p className="Minicart-Header-CartItemsCount">
                 , {this.props.cartItems.length} items
               </p>

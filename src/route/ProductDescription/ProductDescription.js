@@ -8,7 +8,7 @@ import * as CartActions from '../../store/actions/Cart'
 
 import { withRouter } from "../../utils/withRouter";
 import ItemAttribute from "../../component/ItemAttribute";
-import "./ProductDescription.style.css";
+import "./ProductDescription.style.scss";
 import errorIcon from '../../assets/images/error.png'
 import checkIcon from '../../assets/images/check.png'
 import Notification from "../../component/Notifcation";
@@ -66,7 +66,7 @@ class ProductDescription extends React.Component {
       <img
         src={imageURL}
         key={key}
-        className="ShowcaseOptions-Image"
+        className="ProductDescription-ImageArea-ShowcaseOptions-Image"
         alt="ShowCase Option image"
         onClick={() => {
           this.setState({ currentImage: key });
@@ -171,23 +171,23 @@ class ProductDescription extends React.Component {
         
 
         <div className="ProductDescription-ImageArea">
-          <div className="ProductDescription-ImaegeArea-ShowcaseOptions">
+          <div className="ProductDescription-ImageArea-ShowcaseOptions">
             {this.showProductImages(data)}
           </div>
           <div className="ProductDescription-ImageArea-ShowcaseBig">
             <img
-              className="ProductDescription-ShowcaseBig-Image"
+              className="ProductDescription-ImageArea-ShowcaseBig-Image"
               alt="ShowCase Big"
               src={data.product.gallery[this.state.currentImage]}
             />
           </div>
         </div>
         <div className="ProductDescription-ProductInformation">
-          <div className="ProductDescription-ProductInformation-Indentification">
-            <p className="ProductDescription-ProductInformation-Indentification-Brand">
+          <div className="ProductDescription-ProductInformation-Identification">
+            <p className="ProductDescription-ProductInformation-Identification-Brand">
               {data.product.brand}
             </p>
-            <p className="ProductDescription-ProductInformation-Indentification-Name">
+            <p className="ProductDescription-ProductInformation-Identification-Name">
               {data.product.name}
             </p>
           </div>

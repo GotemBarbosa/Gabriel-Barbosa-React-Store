@@ -4,13 +4,13 @@ import { gql } from "apollo-boost";
 import { graphql } from "react-apollo";
 
 import { connect } from "react-redux";
-import * as CartActions from '../../store/actions/Cart'
+import * as CartActions from "../../store/actions/Cart";
 
 import { withRouter } from "../../utils/withRouter";
 import ItemAttribute from "../../component/ItemAttribute";
 import "./ProductDescription.style.scss";
-import errorIcon from '../../assets/images/error.png'
-import checkIcon from '../../assets/images/check.png'
+import errorIcon from "../../assets/images/error.png";
+import checkIcon from "../../assets/images/check.png";
 import Notification from "../../component/Notifcation";
 
 const getProduct = gql`
@@ -52,15 +52,17 @@ class ProductDescription extends React.Component {
       attributes: [],
       notificationData: {},
       showNotification: false,
+
+      tempAttributes:[],
+      savedValues:[]
     };
-    this.attributes = []
-    this.attributesData = this.attributesData.bind(this)
+    this.attributes = [];
+    
   }
 
-  handleCloseNotification(){
-    this.setState({showNotification: false})
+  handleCloseNotification() {
+    this.setState({ showNotification: false });
   }
-
 
   showProductImages(data) {
     return data.product.gallery.map((imageURL, key) => (
@@ -75,89 +77,122 @@ class ProductDescription extends React.Component {
       />
     ));
   }
-  attributesData(data){
-    if(this.attributes){
-      let getSameItem = false
-      let itemKey = null
 
+  getSelections(selection){
+    let sameId = false //get if a value is already stored, to overwrite it later
+    let itemKey = null //index of this repeated attribute
+
+    if(this.attributes.length != 0){
       this.attributes.map((item, key)=>{
-        if(item.id === data.id){
-          getSameItem = true
-          itemKey = key
+        if(item.id === selection.id){
+          sameId = true;
+          itemKey = key;
         }
-
       })
-
-      // this.state.attributes.map((item,key)=>{
-      // })
-      if(getSameItem === true){
-        const tempAttributes = this.attributes
-        tempAttributes.splice(itemKey,1,data)
+      if(sameId){
+        const tempAttributes = [...this.attributes];
+        tempAttributes.splice(itemKey,1, selection)
         this.attributes = tempAttributes
+
       }else{
-        this.attributes = [...this.attributes, data]
+        this.attributes = [...this.attributes, selection]
       }
     }else{
-      this.attributes = [data]
+      this.attributes = [selection]
     }
 
+    // this.attributes = [{selection: selection}]
+
   }
 
-  showAttributes(data) {
-      if(data.product.attributes.length === 0){
-        return null
-      }else{
-        return data.product.attributes.map((attribute, key) => {
-          return <ItemAttribute attribute={attribute} key={key} id={attribute.id} attributesData={(data)=>{this.attributesData(data)}}/>;
-        }); 
-      }
+  showAttributes(data){
+    //there is attributes
+    const dataAttributes = data.product.attributes
+    if(dataAttributes.length !== 0){
+      
+      return dataAttributes.map((attribute, key)=>{
+        return(
+          <ItemAttribute
+            key={key}  
+            attribute={attribute}
+            getSelections={(selection)=>{
+              this.getSelections(selection)
+            }}
+          />
+        )
+      })
+    }
   }
-  addToCart(data){
-    let errorFinder = false
-    
-    if(data.product.attributes.length !== 0){
-      // when the user hasn't even clicked on the attribute
+
+  handleAddToCart(data){
+    this.setState({tempAttributes: this.state.savedValues})//cart items
+
+    //there is no attribute on product
+    if(data.product.attributes.length === 0){
+      this.props.dispatch(
+        CartActions.addToCart({
+          productId: data.product.id,
+          attributes: [],
+          quantity: 1,
+        })
+        );
+      this.setState({
+        savedValues: [...this.state.savedValues, {productId: data.product.id, attributes: [], quantity: 1}]
+      })
+    }else{
       if(data.product.attributes.length !== this.attributes.length){
-        return(this.setState({notificationData:{
-          title: 'Error',
-          description: 'Do not forget to choose all posible attributes',
-          color: '#d9534f',
-          icon: errorIcon
-        },
-        showNotification: true}))
+        //user did not selected all attributes
+        return this.setState({
+          notificationData:{
+            title: "Error",
+            description: "Do not forget to choose all posible attributes ",
+            color: "#d9534f",
+            icon: errorIcon,
+          },
+          showNotification: true
+        })
       }else{
-        this.attributes.map((item)=>{
-          // when the user removed the selection from the attribute
-          if(item.selected === null){
-            errorFinder = true
-            return(this.setState({notificationData:{
-              title: 'Error',
-              description: 'Do not forget to choose all posible attributes',
-              color: '#d9534f',
-              icon: errorIcon
-            },
-            showNotification: true}))
+        // when user removed the selection from the attribute
+        let error = false;
+
+        this.attributes.map((attribute)=>{
+          if( attribute.selected === null){
+            error = true
+            return this.setState({
+              notificationData: {
+                title: "Error",
+                description: "Do not forget to choose all posible attributes",
+                color: "#d9534f", 
+                icon: errorIcon,
+              },
+              showNotification: true,
+            });
           }
         })
-        if(!errorFinder){
-          this.setState({notificationData:{
-            title: 'Success',
-            description: ` ${data.product.name} added to the cart`,
-            color: '#5ece7b',
-            icon: checkIcon
-          },
-          showNotification: true})
-          const attribute = this.attributes
-          console.log(this.props.cartItems)
-          return this.props.dispatch(CartActions.addToCart({productId:data.product.id, attributes: attribute, quantity:1}))
+        if(error === false){
 
+          this.props.dispatch(CartActions.addToCart({
+            productId: data.product.id,
+            attributes: this.attributes,
+            quantity: 1,
+          }))
+          this.setState({
+            savedValues: [...this.state.savedValues, {productId: data.product.id, attributes: this.attributes, quantity: 1}]
+          }) 
+          this.setState({
+            notificationData: {
+              title: "Success",
+              description: ` ${data.product.name} added to the cart`,
+              color: "#5ece7b",
+              icon: checkIcon,
+            },
+            showNotification: true,
+          })
         }
       }
-    }else{
-      this.props.dispatch(CartActions.addToCart({productId:data.product.id, attributes: [], quantity:1}))
-      return null
     }
   }
+
 
   render() {
     const data = this.props.data;
@@ -166,12 +201,14 @@ class ProductDescription extends React.Component {
     }
     return (
       <div className="ProductDescription">
-        {
-          this.state.showNotification?<Notification data={this.state.notificationData}
-          onClose={()=>{this.handleCloseNotification()}}
-          />:null
-        }
-        
+        {this.state.showNotification ? (
+          <Notification
+            data={this.state.notificationData}
+            onClose={() => {
+              this.handleCloseNotification();
+            }}
+          />
+        ) : null}
 
         <div className="ProductDescription-ImageArea">
           <div className="ProductDescription-ImageArea-ShowcaseOptions">
@@ -193,6 +230,20 @@ class ProductDescription extends React.Component {
             <p className="ProductDescription-ProductInformation-Identification-Name">
               {data.product.name}
             </p>
+
+            {
+               this.state.savedValues.map((item,key)=>{
+                 return(
+                  <div key={key}>
+                    <p></p>
+                    <p>id: {item.productId}</p>
+                    <p>selection: {item.attributes[0].selected}</p>
+                    <p>quantity: {item.quantity}</p> 
+                  </div>
+                )
+              })
+            }
+
           </div>
           <div className="ProductDescription-ProductInformation-Attributes">
             {this.showAttributes(data)}
@@ -205,15 +256,20 @@ class ProductDescription extends React.Component {
               {data.product.prices[this.props.activeCurrency].currency.symbol}
               {data.product.prices[this.props.activeCurrency].amount}
             </p>
-            {data.product.inStock?
-            <button className="ProductDescription-ProductInformation-PurchaseArea-Button" onClick={()=>{this.addToCart(data)}}>
-              ADD TO CART
-            </button>
-            :
-            <button className="ProductDescription-ProductInformation-PurchaseArea-Button-OutOfStock" onClick={()=>{}}>
-              OUT OF STOCK
-            </button>
-            }
+            {data.product.inStock ? (
+              <button
+                className="ProductDescription-ProductInformation-PurchaseArea-Button"
+                onClick={() => {
+                  this.handleAddToCart(data);
+                }}
+              >
+                ADD TO CART
+              </button>
+            ) : (
+              <button className="ProductDescription-ProductInformation-PurchaseArea-Button-OutOfStock">
+                OUT OF STOCK
+              </button>
+            )}
           </div>
           <div className="ProductDescription-ProductInformation-Description">
             <p
@@ -229,7 +285,7 @@ class ProductDescription extends React.Component {
 
 export default connect((state) => ({
   activeCurrency: state.currency.activeCurrency,
-  cartItems: state.cart.cartItems
+  cartItems: state.cart.cartItems,
 }))(
   withRouter(
     graphql(getProduct, {
@@ -238,7 +294,7 @@ export default connect((state) => ({
           variables: {
             id: props.match.params.id,
           },
-          fetchPolicy: "no-cache" 
+          fetchPolicy: "no-cache",
         };
       },
     })(ProductDescription)

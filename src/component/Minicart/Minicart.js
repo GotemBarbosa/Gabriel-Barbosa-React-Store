@@ -48,6 +48,7 @@ const getData = gql`
 class Minicart extends React.Component {
   showAttributes(cartItem, item) {
     return cartItem.attributes.map((cartItemAttribute) => {
+      //console.log(cartItemAttribute) 
       return item.attributes.map((itemAttribute) => {
         if (cartItemAttribute.id === itemAttribute.id) {
           return itemAttribute.items.map((itemAttributeSelection, key) => {
@@ -130,7 +131,6 @@ class Minicart extends React.Component {
                       this.props.dispatch(
                         CartActions.updateCartQuantity(key, cartItem.quantity + 1)
                       );
-                      //localStorage.setItem('CART', JSON.stringify(this.props.cartItems))
                     }}
                   >
                     <img
@@ -149,12 +149,10 @@ class Minicart extends React.Component {
                         this.props.dispatch(
                           CartActions.deleteInCart(cartItem)
                         );
-                        //localStorage.setItem('CART', JSON.stringify(this.props.cartItems))
                       }else{
                         this.props.dispatch(
                           CartActions.updateCartQuantity(key, cartItem.quantity - 1)
                         );
-                        //localStorage.setItem('CART', JSON.stringify(this.props.cartItems))
                       }
                     }}
                   >
@@ -220,6 +218,7 @@ class Minicart extends React.Component {
                 , {this.props.cartItems.length} items
               </p>
             </div>
+            
             {this.props.cartItems.length === 0?
             <div className="Minicart-EmptyCart">
                 <img className="Minicart-EmptyCart-Icon"  src={emptyCartIcon} alt='Empty cart'/>

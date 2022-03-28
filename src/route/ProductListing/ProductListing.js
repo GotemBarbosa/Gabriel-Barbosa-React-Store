@@ -53,7 +53,7 @@ class ProductListing extends React.Component {
   }
 
   render() {
-    // localStorage.clear()
+    //localStorage.clear()
     // console.log(JSON.parse(localStorage.getItem('CART')))
     return (
       <div className="ProductListing">

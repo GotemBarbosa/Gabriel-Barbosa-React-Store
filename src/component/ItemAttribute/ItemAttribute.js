@@ -10,14 +10,14 @@ class ItemAttribute extends React.Component {
     this.selectedAttribute = null
   }
   changeSelection(key, type){
-        if(this.selected === key){
+        if(this.selectedAttribute === key){
             this.setState({ selected: null })
             this.selectedAttribute = null
-            return this.props.attributesData({id: this.props.id, type: type,selected: null })
+            return this.props.getSelections({id: this.props.attribute.id, type: type,selected: null })
         }else{
             this.setState({ selected: key }) 
             this.selectedAttribute = key
-            return this.props.attributesData({id: this.props.id, type: type, selected: key })
+            return this.props.getSelections({id: this.props.attribute.id, type: type, selected: key })
         }
   }
 
@@ -65,3 +65,4 @@ class ItemAttribute extends React.Component {
   }
 }
 export default ItemAttribute;
+

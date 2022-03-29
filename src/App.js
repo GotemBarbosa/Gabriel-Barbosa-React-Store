@@ -7,6 +7,7 @@ import Header from "./component/Header";
 import './styles/global.scss'
 
 class App extends React.Component {
+  
   render() {
     return (
       <div className="App">

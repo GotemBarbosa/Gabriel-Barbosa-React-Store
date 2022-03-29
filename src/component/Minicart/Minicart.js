@@ -1,9 +1,8 @@
 import React from "react";
 import { connect } from "react-redux";
 import * as CartActions from "../../store/actions/Cart";
-import { gql } from "apollo-boost";
 import { graphql } from "react-apollo";
-
+import { getCartData } from "../../graphql/Queries";
 import { withRouter } from "../../utils/withRouter";
 
 import "./Minicart.styles.scss";
@@ -11,61 +10,32 @@ import emptyCartIcon from '../../assets/icons/empty-cart.svg'
 import minusIcon from "../../assets/icons/minus.svg";
 import plusIcon from "../../assets/icons/plus.svg";
 
-const getData = gql`
-  {
-    category {
-      products {
-        id
-        name
-        prices {
-          currency {
-            label
-            symbol
-          }
-          amount
-        }
-        attributes {
-          id
-          name
-          type
-          items {
-            displayValue
-            value
-            id
-          }
-        }
-        gallery
-        brand
-      }
-    }
-    currencies {
-      symbol
-      label
-    }
-  }
-`;
-
 class Minicart extends React.Component {
   showAttributes(cartItem, item) {
-    return cartItem.attributes.map((cartItemAttribute) => {
-      //console.log(cartItemAttribute) 
-      return item.attributes.map((itemAttribute) => {
+    return cartItem.attributes.map((cartItemAttribute) => (
+      <div className="Minicart-Products-Product-Information-Attributes">
+        {item.attributes.map((itemAttribute) => {
         if (cartItemAttribute.id === itemAttribute.id) {
           return itemAttribute.items.map((itemAttributeSelection, key) => {
-            if (cartItemAttribute.selected === key) {
+            
               if (cartItemAttribute.type === "text") {
                 return (
                   <div className="Minicart-Products-Product-Information-Attributes-Attribute" key = {key}>
                     <div className="Minicart-Products-Product-Information-Attributes-Attribute-AttributeText">
                       <button
-                        className="Minicart-Products-Product-Information-Attributes-Attribute-AttributeText-Option-Selected"
-                        
+                        className={
+                          cartItemAttribute.selected === key?
+                          "Minicart-Products-Product-Information-Attributes-Attribute-AttributeText-Option-Selected":                  
+                          "Minicart-Products-Product-Information-Attributes-Attribute-AttributeText-Option"                  
+                        }
                       >
+                        
                         <p className="Minicart-Products-Product-Information-Attributes-Attribute-AttributeText-Option-Text">
                           {itemAttributeSelection.value}
                         </p>
                       </button>
                     </div>
+                    
                   </div>
                 );
               }
@@ -75,7 +45,11 @@ class Minicart extends React.Component {
                     <div className="Minicart-Products-Product-Information-Attributes-Attribute-AttributeSwatch">
                       <div className="Minicart-Products-Product-Information-Attributes-Attribute-AttributeSwatch-Option">
                         <button
-                          className="Minicart-Products-Product-Information-Attributes-Attribute-AttributeSwatch-Option-Color-Selected"
+                        className={
+                          cartItemAttribute.selected === key?
+                          "Minicart-Products-Product-Information-Attributes-Attribute-AttributeSwatch-Option-Color-Selected":
+                          "Minicart-Products-Product-Information-Attributes-Attribute-AttributeSwatch-Option-Color"
+                        }
                           style={{
                             backgroundColor: `${itemAttributeSelection.value}`,
                           }}
@@ -90,11 +64,12 @@ class Minicart extends React.Component {
                 );
               }
               return null;
-            }
           });
         }
-      });
-    });
+      
+      })}
+      </div>
+    ));
   }
 
   showProducts(data) {
@@ -120,9 +95,7 @@ class Minicart extends React.Component {
                       {item.prices[this.props.activeCurrency].amount}
                     </p>
                   </div>
-                  <div className="Minicart-Products-Product-Information-Attributes">
                     {this.showAttributes(cartItem, item)}
-                  </div>
                 </div>
                 <div className="Minicart-Products-Product-Quantity">
                   <button
@@ -260,7 +233,7 @@ class Minicart extends React.Component {
 export default connect((state) => ({
   cartItems: state.cart.cartItems,
   activeCurrency: state.currency.activeCurrency,
-}))(graphql(getData,{
+}))(graphql(getCartData,{
   options: ()=>{
     return{
       fetchPolicy: "no-cache" 

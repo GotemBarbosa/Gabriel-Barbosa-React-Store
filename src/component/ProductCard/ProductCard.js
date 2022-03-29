@@ -41,9 +41,27 @@ class ProductCard extends React.Component {
     e.stopPropagation()
   }
 
+  showSwatch(){
+    return this.props.data.attributes.map((attribute, key)=>(
+      attribute.type==='swatch'?
+      <div className="ProductCard-Data-Swatch" key={key}>
+        {attribute.items.map((item)=>(
+            <div
+              className={this.props.data.inStock?"ProductCard-Data-Swatch-Color":"ProductCard-Data-Swatch-Color-OutOfStock"}
+              key={item.id}
+              style={{ backgroundColor: `${item.value}` }}
+            />
+        ))}
+      </div>
+      :null
+    ))
+
+  }
+
   render() {
     return (
-      <div className="ProductCard" onClick={(e)=>{e.stopPropagation();this.handleChangePage()}}>
+        
+        <div className= {this.props.data.attributes.length === 0 ? "ProductCard-AddEnabled":"ProductCard"} onClick={(e)=>{e.stopPropagation();this.handleChangePage()}}>
         {
           this.state.showNotification?<Notification data={this.state.notificationData} onClose={(e)=>{this.handleCloseNotification(e)}}/>:null
         }
@@ -90,6 +108,7 @@ class ProductCard extends React.Component {
           >
             {this.props.data.brand} {this.props.data.name}
           </div>
+          {this.showSwatch()}
           <div
             className={
               this.props.data.inStock

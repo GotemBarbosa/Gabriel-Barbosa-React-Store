@@ -1,5 +1,4 @@
 import React from "react";
-import { gql } from "apollo-boost";
 import { graphql } from "react-apollo";
 
 import { connect } from "react-redux";
@@ -10,19 +9,13 @@ import CategoryButton from "../CategoryButton";
 import Cart from "../../assets/icons/cart.svg";
 import CurrencySwitcher from "../CurrencySwitcher";
 import Minicart from "../Minicart";
+import { getCategories, getCurrencies } from "../../graphql/Queries";
 
 import "./Header.style.scss";
 import Logo from "../../assets/images/logo.svg";
 import ArrowDown from "../../assets/icons/arrow-down.svg";
 import ArrowUp from "../../assets/icons/arrow-up.svg";
 
-const getCatogories = gql`
-  {
-    categories {
-      name
-    }
-  }
-`;
 
 class Header extends React.Component {
   constructor(props) {
@@ -81,6 +74,9 @@ class Header extends React.Component {
     if (data.loading) {
       return <div>LOADING...</div>;
     }
+    localStorage.setItem("FIRST_CATEGORY", data.categories[0].name)
+    // localStorage.setItem("FIRST_CURRENCY", data.currency[0])
+    console.log(data.currencies)
     return (
       <div className="Header">
         <div className="Header-Categories">{this.displayCategories()}</div>
@@ -155,4 +151,4 @@ export default connect((state) => ({
   category: state.category,
   currency: state.currency,
   cartItems: state.cart.cartItems,
-}))(graphql(getCatogories)(withRouter(Header)));
+}))(graphql(getCategories)(withRouter(Header)));

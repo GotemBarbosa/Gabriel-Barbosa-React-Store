@@ -1,6 +1,5 @@
 import React from "react";
 
-import { gql } from "apollo-boost";
 import { graphql } from "react-apollo";
 
 import { connect } from "react-redux";
@@ -12,49 +11,15 @@ import "./ProductDescription.style.scss";
 import errorIcon from "../../assets/images/error.png";
 import checkIcon from "../../assets/images/check.png";
 import Notification from "../../component/Notifcation";
-
-const getProduct = gql`
-  query ($id: String!) {
-    product(id: $id) {
-      id
-      name
-      inStock
-      gallery
-      description
-      category
-      attributes {
-        id
-        name
-        type
-        items {
-          displayValue
-          value
-          id
-        }
-      }
-      prices {
-        currency {
-          label
-          symbol
-        }
-        amount
-      }
-      brand
-    }
-  }
-`;
+import { getProduct } from "../../graphql/Queries";
 
 class ProductDescription extends React.Component {
   constructor() {
     super();
     this.state = {
       currentImage: 0,
-      attributes: [],
       notificationData: {},
       showNotification: false,
-
-      tempAttributes:[],
-      savedValues:[]
     };
     this.attributes = [];
     
@@ -125,8 +90,6 @@ class ProductDescription extends React.Component {
   }
 
   handleAddToCart(data){
-    this.setState({tempAttributes: this.state.savedValues})//cart items
-
     //there is no attribute on product
     if(data.product.attributes.length === 0){
       this.props.dispatch(
@@ -136,9 +99,7 @@ class ProductDescription extends React.Component {
           quantity: 1,
         })
         );
-      this.setState({
-        savedValues: [...this.state.savedValues, {productId: data.product.id, attributes: [], quantity: 1}]
-      })
+
     }else{
       if(data.product.attributes.length !== this.attributes.length){
         //user did not selected all attributes
@@ -176,9 +137,6 @@ class ProductDescription extends React.Component {
             attributes: this.attributes,
             quantity: 1,
           }))
-          this.setState({
-            savedValues: [...this.state.savedValues, {productId: data.product.id, attributes: this.attributes, quantity: 1}]
-          }) 
           this.setState({
             notificationData: {
               title: "Success",
@@ -230,20 +188,6 @@ class ProductDescription extends React.Component {
             <p className="ProductDescription-ProductInformation-Identification-Name">
               {data.product.name}
             </p>
-
-            {
-               this.state.savedValues.map((item,key)=>{
-                 return(
-                  <div key={key}>
-                    <p></p>
-                    <p>id: {item.productId}</p>
-                    <p>selection: {item.attributes[0].selected}</p>
-                    <p>quantity: {item.quantity}</p> 
-                  </div>
-                )
-              })
-            }
-
           </div>
           <div className="ProductDescription-ProductInformation-Attributes">
             {this.showAttributes(data)}

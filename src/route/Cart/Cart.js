@@ -1,47 +1,11 @@
 import React from 'react';
 import { connect } from 'react-redux';
 
-import { gql } from "apollo-boost";
 import { graphql } from "react-apollo";
-
+import { getCartData } from '../../graphql/Queries';
 import CartProduct from '../../component/CartProduct';
 import emptyCart from '../../assets/icons/empty-cart.svg'
 import './Cart.style.scss'
-
-const getData = gql`
-  {
-    category {
-      products {
-        id
-        name
-        prices {
-          currency {
-            label
-            symbol
-          }
-          amount
-        }
-        gallery
-        brand
-        attributes{
-            id
-            name
-            type
-            items{
-                displayValue
-                value
-                id
-            }
-        }
-      }
-    }
-    currencies{
-        symbol
-        label
-      }
-  }
-`;
-
 
 class Cart extends React.Component{
 
@@ -94,7 +58,7 @@ class Cart extends React.Component{
 export default connect((state) => ({
     cartItems: state.cart.cartItems,
     activeCurrency: state.currency.activeCurrency,
-  }))(graphql(getData,{
+  }))(graphql(getCartData,{
     options: ()=>{
       return{
         fetchPolicy: "no-cache" 

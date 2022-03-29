@@ -20,28 +20,35 @@ class CartProduct extends React.Component {
     if (operation === "+") {
       if (this.props.item.gallery[this.state.imageIndex + 1] !== undefined) {
         this.setState({ imageIndex: this.state.imageIndex + 1 });
+      }else{
+        this.setState({imageIndex: 0})
       }
     } else {
       if (this.props.item.gallery[this.state.imageIndex - 1] !== undefined) {
         this.setState({ imageIndex: this.state.imageIndex - 1 });
+      }else{
+        this.setState({imageIndex: this.props.item.gallery.length - 1})
       }
     }
   }
   showAttributes() {
-    return this.props.cartItem.attributes.map((cartItemAttribute) => {
-      return this.props.item.attributes.map((itemAttribute) => {
+    return this.props.cartItem.attributes.map((cartItemAttribute) => (
+      <div className="Product-Information-Attributes">
+      {this.props.item.attributes.map((itemAttribute) => {
         if (cartItemAttribute.id === itemAttribute.id) {
           return itemAttribute.items.map((itemAttributeSelection, key) => {
-            if (cartItemAttribute.selected === key) {
               if (cartItemAttribute.type === "text") {
                 return (
-                  <div className="Product-Attribute">
-                    <div className="Product-Attribute-AttributeText">
+                  <div className="Product-Information-Attributes-Attribute">
+                    <div className="Product-Information-Attributes-Attribute-AttributeText">
                       <button
-                        className="Product-Attribute-AttributeText-Option-Selected"
+                        className={cartItemAttribute.selected === key?
+                          "Product-Information-Attributes-Attribute-AttributeText-Option-Selected":
+                          "Product-Information-Attributes-Attribute-AttributeText-Option"
+                        }
                         key={key}
                       >
-                        <p className="Product-Attribute-AttributeText-Option-Text">
+                        <p className="Product-Information-Attributes-Attribute-AttributeText-Option-Text">
                           {itemAttributeSelection.value}
                         </p>
                       </button>
@@ -51,17 +58,20 @@ class CartProduct extends React.Component {
               }
               if (cartItemAttribute.type === "swatch") {
                 return (
-                  <div className="Product-Attribute">
-                    <div className="Product-Attribute-AttributeSwatch">
-                      <div className="Product-Attribute-AttributeSwatch-Option" key={key}>
+                  <div className="Product-Information-Attributes-Attribute">
+                    <div className="Product-Information-Attributes-Attribute-AttributeSwatch">
+                      <div className="Product-Information-Attributes-Attribute-AttributeSwatch-Option" key={key}>
                         <button
-                          className="Product-Attribute-AttributeSwatch-Option-Color-Selected"
+                          className={cartItemAttribute.selected === key?
+                            "Product-Information-Attributes-Attribute-AttributeSwatch-Option-Color-Selected":
+                            "Product-Information-Attributes-Attribute-AttributeSwatch-Option-Color"
+                          }
                           style={{
                             backgroundColor: `${itemAttributeSelection.value}`,
                           }}
                           key={key}
                         />
-                        <p className="Product-Attribute-AttributeSwatch-Option-Text">
+                        <p className="Product-Information-Attributes-Attribute-AttributeSwatch-Option-Text">
                           {itemAttributeSelection.displayValue}
                         </p>
                       </div>
@@ -70,11 +80,13 @@ class CartProduct extends React.Component {
                 );
               }
               return null;
-            }
+            
           });
         }
-      });
-    });
+      })
+      }
+      </div>
+    ));
   }
 
   render() {
@@ -98,9 +110,7 @@ class CartProduct extends React.Component {
               {this.props.item.prices[this.props.activeCurrency].amount}
             </p>
           </div>
-          <div className="Product-Information-Categories">
             {this.showAttributes()}
-          </div>
         </div>
         <div className="Product-Quantity">
           <button

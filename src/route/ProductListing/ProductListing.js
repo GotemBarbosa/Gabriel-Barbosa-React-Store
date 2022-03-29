@@ -1,46 +1,11 @@
 import React from "react";
-import { gql } from "apollo-boost";
 import { graphql } from "react-apollo";
 
 import { connect } from "react-redux";
-
+import { getProducts } from "../../graphql/Queries";
 
 import "./ProductListing.style.scss";
 import ProductCard from "../../component/ProductCard";
-
-const getNewProducts = gql`
-  query getProducts($type: String!) {
-    category(input: { title: $type }) {
-      name
-      products {
-        id
-        name
-        inStock
-        gallery
-        description
-        category
-        attributes {
-          id
-          name
-          type
-          items {
-            displayValue
-            value
-            id
-          }
-        }
-        prices {
-          currency {
-            label
-            symbol
-          }
-          amount
-        }
-        brand
-      }
-    }
-  }
-`;
 
 class ProductListing extends React.Component {
 
@@ -53,8 +18,7 @@ class ProductListing extends React.Component {
   }
 
   render() {
-    //localStorage.clear()
-    // console.log(JSON.parse(localStorage.getItem('CART')))
+''
     return (
       <div className="ProductListing">
         <div className="ProductListing-CategoryTitle">
@@ -71,7 +35,7 @@ export default connect((state) => ({
   categoryName: state.category.activeCategoryName,
   activeCurrency: state.currency.activeCurrency
 }))(
-  graphql(getNewProducts, {
+  graphql(getProducts, {
     options: (props) => {
       return {
         variables: {

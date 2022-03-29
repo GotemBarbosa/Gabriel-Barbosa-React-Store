@@ -1,6 +1,6 @@
 const INITIAL_STATE = {
     activeCategory: 0,
-    activeCategoryName: "all"
+    activeCategoryName: localStorage.getItem("FIRST_CATEGORY")
 }
 
 export default function category(state = INITIAL_STATE, action){

@@ -1,0 +1,49 @@
+.CartPage {
+  margin-top: calc(var(--page-toHeader-margin) * 2);
+  width: 100%;
+  height: calc(100% - var(--header-height));
+  padding: 0 8% 0 6%;
+  display: flex;
+  flex-direction: column;
+
+  &-Header {
+    margin-bottom: 60px;
+
+    &-Text {
+      font-family: "Raleway";
+      font-weight: 700;
+      font-size: 32px;
+      line-height: 125%;
+    }
+  }
+
+  &-EmptyCart {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    &-Title {
+      font-family: "Raleway";
+      font-weight: 600;
+      font-size: 30px;
+      line-height: 160%;
+      color: var(--black);
+    }
+
+    &-Icon {
+      height: 50px;
+      margin: 10px 0;
+      user-select: none;
+    }
+
+    &-Tip {
+      margin: 10px 0 20px 0;
+      font-family: "Raleway";
+      font-size: 18px;
+      font-weight: 500;
+      text-align: center;
+    }
+  }
+}

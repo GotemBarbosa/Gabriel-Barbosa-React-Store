@@ -1,0 +1,28 @@
+:root{
+    --cardWidth:350px;
+}
+
+.CategoryPage{
+    height: calc(100% - var(--header-height));
+    margin-top: calc(var(--page-toHeader-margin)*1.5);
+    width: 100%;
+    padding:  0 6%;
+    box-sizing: border-box;
+
+    &-CategoryTitle{
+        font-family: 'Raleway';
+        font-size: 42px;
+        line-height: 160%;
+        color: var(--black);
+        text-transform: capitalize;
+    }
+
+    &-Products{
+        width: 100%;
+        display: grid;
+        grid-template-columns: repeat(auto-fill, minmax(var(--cardWidth), 1fr));
+        margin-top: 15px;
+        justify-items: center;
+        margin-bottom: 15px;
+    }
+}

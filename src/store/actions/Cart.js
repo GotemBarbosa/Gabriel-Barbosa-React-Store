@@ -17,3 +17,9 @@ export function deleteInCart(cartItem) {
     cartItem,
   };
 }
+
+export function clearCart(){
+  return{
+    type: "CLEAR_CART"
+  }
+}

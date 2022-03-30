@@ -179,6 +179,11 @@ class Minicart extends React.Component {
     );
     return parseFloat(price).toFixed(2);
   }
+
+  handleCheckOut(){
+    //simple action when checkout is clicked
+    return this.props.dispatch(CartActions.clearCart())
+  }
   render() {
     const data = this.props.data;
     if (data.loading) {
@@ -243,7 +248,7 @@ class Minicart extends React.Component {
                   >
                     VIEW BAG
                   </button>
-                  <button className="Minicart-Functions-CheckOutButton">
+                  <button className="Minicart-Functions-CheckOutButton" onClick={()=>{this.handleCheckOut()}}>
                     CHECK OUT
                   </button>
                 </div>

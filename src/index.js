@@ -11,7 +11,6 @@ const client = new ApolloClient({
   cache: new InMemoryCache(),
   uri: "http://localhost:4000/",
 });
-
 ReactDOM.render(
   <BrowserRouter>
     <ApolloProvider client={client}>

@@ -24,6 +24,13 @@ export default function cart(state = INITIAL_STATE, action){
             ...state.cartItems.filter(cartItem => cartItem !== action.cartItem)]
         }
     }
+
+    if(action.type === "CLEAR_CART"){
+        localStorage.setItem('CART', JSON.stringify([]))
+        return {
+            cartItems:[]
+        }
+    }
     return state
 }
 

@@ -1,304 +1,302 @@
 $itemsMargin-to-bottom: 25px;
 
-.Minicart{
-    position: absolute;
-    left: 0;
-    width: 100vw;
+.Minicart {
+  position: absolute;
+  left: 0;
+  width: 100vw;
 
-    &-ScreenBackground{
-        height: 100%;
-        width: 100%;
-        background: var(--gray-opacity);
-        z-index: 2;
-        position: fixed;
+  &-ScreenBackground {
+    height: 100%;
+    width: 100%;
+    background: var(--gray-opacity);
+    z-index: 2;
+    position: fixed;
 
-        &-Overlay{
-            position: absolute;
-            left: calc(100vw - 33%);
-            width: 355px;
-            background-color: var(--white);
-            z-index: 3;
-            display: flex;
-            flex-direction: column;
-            padding: 10px 15px;
-            overflow-y: scroll;
-            max-height: 500px;
-        }
+    &-Overlay {
+      position: absolute;
+      left: calc(100vw - 33%);
+      width: 355px;
+      background-color: var(--white);
+      z-index: 3;
+      display: flex;
+      flex-direction: column;
+      padding: 10px 15px;
+      overflow-y: scroll;
+      max-height: 500px;
+    }
+  }
+
+  &-Header {
+    display: flex;
+    margin-bottom: $itemsMargin-to-bottom;
+
+    &-Identification {
+      font-family: "Raleway";
+      color: var(--black);
+      font-weight: 700;
+      font-size: 16px;
+      line-height: 160%;
+    }
+    &-CartItemsCount {
+      font-family: "Raleway";
+      color: var(--black);
+      font-weight: 600;
+      font-size: 16px;
+      line-height: 160%;
+    }
+  }
+
+  &-EmptyCart {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+
+    &-Title {
+      font-family: "Raleway";
+      font-weight: 600;
+      font-size: 16px;
+      line-height: 160%;
+      color: var(--black);
     }
 
-    &-Header{
-        display: flex;
-        margin-bottom: $itemsMargin-to-bottom; 
-
-        &-Identification{
-            font-family: 'Raleway';
-            color: var(--black);
-            font-weight: 700;
-            font-size: 16px;
-            line-height: 160%;
-        }
-        &-CartItemsCount{
-            font-family: 'Raleway';
-            color: var(--black);
-            font-weight: 600;
-            font-size: 16px;
-            line-height: 160%;
-        }
+    &-Icon {
+      height: 30px;
+      margin: 10px 0;
+      user-select: none;
     }
 
-    &-EmptyCart{
-        width: 100%;
+    &-Tip {
+      margin: 10px 0;
+      font-family: "Raleway";
+      font-size: 14px;
+      font-weight: 500;
+      text-align: center;
+    }
+  }
+
+  &-Products {
+    margin-bottom: $itemsMargin-to-bottom;
+
+    &-Product {
+      width: 100%;
+      display: grid;
+      grid-template-columns: 3.5fr 0.5fr 2fr;
+      margin-bottom: $itemsMargin-to-bottom;
+
+      &-Information {
+        padding: 10px 0 10px 10px;
         display: flex;
         flex-direction: column;
-        justify-content: center;
-        align-items: center;
 
-        &-Title{
-            font-family: 'Raleway';
-            font-weight: 600;
+        &-Identification {
+          margin-bottom: 10px;
+
+          &-Brand,
+          &-Name {
+            font-family: "Raleway";
+            font-weight: 300;
             font-size: 16px;
             line-height: 160%;
             color: var(--black);
+          }
         }
 
-        &-Icon{
-            height: 30px;
-            margin: 10px 0;
-            user-select: none;
-        }
-
-        &-Tip{
-            margin: 10px 0;
-            font-family: 'Raleway';
-            font-size: 14px;
+        &-Value {
+          &-Label {
+            font-family: "Raleway";
             font-weight: 500;
-            text-align: center; 
+            font-size: 16px;
+            line-height: 160%;
+            color: var(--black);
+          }
         }
-    }
 
-    &-Products{
-        margin-bottom: $itemsMargin-to-bottom;
+        &-Attributes {
+          display: flex;
+          flex-direction: row;
+          flex-wrap: wrap;
 
-        &-Product{
-            width: 100%;
-            display: grid;
-            grid-template-columns: 3.5fr 0.5fr 2fr;
-            margin-bottom: $itemsMargin-to-bottom;
+          &-Attribute {
+            margin-top: 10px;
 
-            &-Information{
-                padding: 10px 0 10px 10px;
-                display: flex;
-                flex-direction: column;
+            &-AttributeText,
+            &-AttributeSwatch {
+              display: flex;
+              flex-direction: row;
+              margin-top: 5px;
 
-                &-Identification{
-                    margin-bottom: 10px;
-
-                    &-Brand,
-                    &-Name{
-                        font-family: 'Raleway';
-                        font-weight: 300;
-                        font-size: 16px;
-                        line-height: 160%;
-                        color: var(--black)
-                    }
+              &-Option {
+                &-Text {
+                  font-family: "Source Sans Pro";
+                  letter-spacing: 0.03em;
+                  font-size: 12px;
                 }
-
-                &-Value{
-                    &-Label{
-                        font-family: 'Raleway';
-                        font-weight: 500;
-                        font-size: 16px;
-                        line-height: 160%;
-                        color: var(--black)
-                    }
-                }
-
-                &-Attributes{
-                    display: flex;
-                    flex-direction: row;
-                    flex-wrap: wrap;
-
-                    &-Attribute{
-                        margin-top: 10px;
-
-                        &-AttributeText,
-                        &-AttributeSwatch{
-                            display: flex;
-                            flex-direction: row;
-                            margin-top: 5px;
-
-                            &-Option{
-                                &-Text{
-                                    font-family: 'Source Sans Pro';
-                                    letter-spacing: 0.03em;
-                                    font-size: 12px;
-                                }
-                            }
-                        }
-
-                        &-AttributeText{
-                            &-Option,
-                            &-Option-Selected{
-                                padding: 0 8px;
-                                margin-right: 8px;
-                                height: 24px;
-                                border: 1px solid var(--black);
-                                display: flex;
-                                justify-content: center;
-                                align-items: center;
-                                user-select: none;
-                                background: transparent;
-                                transition: 0.3s;
-
-                                &-Selected{
-                                    border: 1px solid #A6A6A6;
-                                    background-color: #A6A6A633;
-                                    color: #A6A6A6; 
-
-                                }
-                            }
-                        }
-
-                        &-AttributeSwatch{
-                            &-Option{
-                                display: flex;
-                                flex-direction: column;
-                                align-items: center;
-                                user-select: none;
-                                padding: 0 5px;
-
-                                &-Color,
-                                &-Color-Selected{
-                                    height: 20px;
-                                    width: 20px;
-                                    border-radius: 100%;
-                                    border: 0.5px solid var(--gray);
-                                    z-index: 0;
-
-                                    &-Selected{
-                                        border: 2px solid var(--active-color)
-                                    }
-                                }
-
-                                &-Text{
-                                    font-size: 14px;
-                                }
-                            }
-                        }
-                    }
-                }
+              }
             }
 
-            &-Quantity{
-                display: flex;
-                flex-direction: column;
-                justify-content: space-between;
-                align-items: center;
-                margin-right: 10px;
-
-                &-PlusButton,
-                &-MinusButton{
-                    width: 25px;
-                    height: 25px;
-                    background: transparent;
-                    border: 1px solid var(--black);
-                    display: flex;
-                    justify-content: center;
-                    align-items: center;
-                    transition: 0.3s;
-                    cursor: pointer;
-
-                    &:hover{
-                        background: var(--white-hover);
-                    }
-
-                    &-Icon{
-                        height: 12px;
-                        width: 12px;  
-                    }
-                }
-
-                &-CurrentQuantity{
-                    font-family: 'Raleway';
-                    font-weight: 500;
-                    font-size: 16px;
-                    color: var(--black)
-                }
-            }
-
-            &-ImageArea{
+            &-AttributeText {
+              &-Option,
+              &-Option-Selected {
+                padding: 0 8px;
+                margin-right: 8px;
+                height: 24px;
+                border: 1px solid var(--black);
                 display: flex;
                 justify-content: center;
                 align-items: center;
+                user-select: none;
+                background: transparent;
+                transition: 0.3s;
 
-                &-Image{
-                    width: auto;
-                    max-height: auto;
-                    max-width: 100%;
+                &-Selected {
+                  border: 1px solid #a6a6a6;
+                  background-color: #a6a6a633;
+                  color: #a6a6a6;
                 }
+              }
             }
-        }
-    }
 
-    &-TotalPrice{
+            &-AttributeSwatch {
+              &-Option {
+                display: flex;
+                flex-direction: column;
+                align-items: center;
+                user-select: none;
+                padding: 0 5px;
+
+                &-Color,
+                &-Color-Selected {
+                  height: 20px;
+                  width: 20px;
+                  border-radius: 100%;
+                  border: 0.5px solid var(--gray);
+                  z-index: 0;
+
+                  &-Selected {
+                    border: 2px solid var(--active-color);
+                  }
+                }
+
+                &-Text {
+                  font-size: 14px;
+                }
+              }
+            }
+          }
+        }
+      }
+
+      &-Quantity {
         display: flex;
-        width: 100%;
+        flex-direction: column;
         justify-content: space-between;
-        margin-bottom: $itemsMargin-to-bottom;
+        align-items: center;
+        margin-right: 10px;
 
-        &-Label{
-            font-family: 'Roboto';
-            color: var(--black);
-            font-weight: 500;
-            font-size: 16px;
+        &-PlusButton,
+        &-MinusButton {
+          width: 25px;
+          height: 25px;
+          background: transparent;
+          border: 1px solid var(--black);
+          display: flex;
+          justify-content: center;
+          align-items: center;
+          transition: 0.3s;
+          cursor: pointer;
+
+          &:hover {
+            background: var(--white-hover);
+          }
+
+          &-Icon {
+            height: 12px;
+            width: 12px;
+          }
         }
 
-        &-Value{
-            font-family: 'Roboto';
-            color: var(--black);
-            font-weight: 500;
-            font-size: 16px;
+        &-CurrentQuantity {
+          font-family: "Raleway";
+          font-weight: 500;
+          font-size: 16px;
+          color: var(--black);
         }
-    }
+      }
 
-    &-Functions{
-        width: 100%;
+      &-ImageArea {
         display: flex;
-        justify-content: space-between;
-        height: 43px;
+        justify-content: center;
+        align-items: center;
 
-        &-ViewBagButton{
-            width: 48%;
-            height: 40px;
-            background: transparent;
-            border: 1px solid var(--black);
-            font-family: 'Raleway';
-            font-weight: 600;
-            font-size: 14px;
-            color: var(--black);
-            transition: 0.3s;
-            cursor: pointer;
-
-            &:hover{
-                background-color: var(--white-hover);
-            }
+        &-Image {
+          width: auto;
+          max-height: auto;
+          max-width: 100%;
         }
-
-        &-CheckOutButton{
-            width: 48%;
-            border: none;
-            background-color: var(--active-color);
-            font-family:'Raleway';
-            font-weight: 600;
-            font-size: 14px;
-            color: var(--white);
-            transition: 0.3s;
-            cursor: pointer;
-
-            &:hover{
-                background-color: var(--active-hover-color);
-            }
-        }
+      }
     }
+  }
+
+  &-TotalPrice {
+    display: flex;
+    width: 100%;
+    justify-content: space-between;
+    margin-bottom: $itemsMargin-to-bottom;
+
+    &-Label {
+      font-family: "Roboto";
+      color: var(--black);
+      font-weight: 500;
+      font-size: 16px;
+    }
+
+    &-Value {
+      font-family: "Roboto";
+      color: var(--black);
+      font-weight: 500;
+      font-size: 16px;
+    }
+  }
+
+  &-Functions {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    height: 43px;
+
+    &-ViewBagButton {
+      width: 48%;
+      height: 40px;
+      background: transparent;
+      border: 1px solid var(--black);
+      font-family: "Raleway";
+      font-weight: 600;
+      font-size: 14px;
+      color: var(--black);
+      transition: 0.3s;
+      cursor: pointer;
+
+      &:hover {
+        background-color: var(--white-hover);
+      }
+    }
+
+    &-CheckOutButton {
+      width: 48%;
+      border: none;
+      background-color: var(--active-color);
+      font-family: "Raleway";
+      font-weight: 600;
+      font-size: 14px;
+      color: var(--white);
+      transition: 0.3s;
+      cursor: pointer;
+
+      &:hover {
+        background-color: var(--active-hover-color);
+      }
+    }
+  }
 }
-

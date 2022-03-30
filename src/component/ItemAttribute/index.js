@@ -1,1 +1,1 @@
-export {default} from './ItemAttribute'
+export { default } from "./ItemAttribute";

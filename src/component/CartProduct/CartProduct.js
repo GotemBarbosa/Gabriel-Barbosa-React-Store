@@ -1,7 +1,8 @@
 import React from "react";
-import { connect } from "react-redux";
-import * as CartActions from "../../store/actions/Cart";
 
+import { connect } from "react-redux";
+
+import * as CartActions from "../../store/actions/Cart";
 import arrowLeft from "../../assets/icons/arrow-left-white.svg";
 import arrowRight from "../../assets/icons/arrow-right-white.svg";
 import minusIcon from "../../assets/icons/minus.svg";
@@ -16,35 +17,41 @@ class CartProduct extends React.Component {
       imageIndex: 0,
     };
   }
-  changeImageIndex(operation) {
+
+  changeImage(operation) {
     if (operation === "+") {
       if (this.props.item.gallery[this.state.imageIndex + 1] !== undefined) {
         this.setState({ imageIndex: this.state.imageIndex + 1 });
-      }else{
-        this.setState({imageIndex: 0})
+      } else {
+        this.setState({ imageIndex: 0 });
       }
     } else {
       if (this.props.item.gallery[this.state.imageIndex - 1] !== undefined) {
         this.setState({ imageIndex: this.state.imageIndex - 1 });
-      }else{
-        this.setState({imageIndex: this.props.item.gallery.length - 1})
+      } else {
+        this.setState({ imageIndex: this.props.item.gallery.length - 1 });
       }
     }
   }
+
   showAttributes() {
-    return this.props.cartItem.attributes.map((cartItemAttribute) => (
-      <div className="Product-Information-Attributes">
-      {this.props.item.attributes.map((itemAttribute) => {
-        if (cartItemAttribute.id === itemAttribute.id) {
-          return itemAttribute.items.map((itemAttributeSelection, key) => {
+    return this.props.cartItem.attributes.map((cartItemAttribute, index) => (
+      <div className="Product-Information-Attributes" key={index}>
+        {this.props.item.attributes.map((itemAttribute) => {
+          if (cartItemAttribute.id === itemAttribute.id) {
+            return itemAttribute.items.map((itemAttributeSelection, key) => {
               if (cartItemAttribute.type === "text") {
                 return (
-                  <div className="Product-Information-Attributes-Attribute">
+                  <div
+                    className="Product-Information-Attributes-Attribute"
+                    key={itemAttributeSelection.id}
+                  >
                     <div className="Product-Information-Attributes-Attribute-AttributeText">
                       <button
-                        className={cartItemAttribute.selected === key?
-                          "Product-Information-Attributes-Attribute-AttributeText-Option-Selected":
-                          "Product-Information-Attributes-Attribute-AttributeText-Option"
+                        className={
+                          cartItemAttribute.selected === key
+                            ? "Product-Information-Attributes-Attribute-AttributeText-Option-Selected"
+                            : "Product-Information-Attributes-Attribute-AttributeText-Option"
                         }
                         key={key}
                       >
@@ -60,11 +67,15 @@ class CartProduct extends React.Component {
                 return (
                   <div className="Product-Information-Attributes-Attribute">
                     <div className="Product-Information-Attributes-Attribute-AttributeSwatch">
-                      <div className="Product-Information-Attributes-Attribute-AttributeSwatch-Option" key={key}>
+                      <div
+                        className="Product-Information-Attributes-Attribute-AttributeSwatch-Option"
+                        key={key}
+                      >
                         <button
-                          className={cartItemAttribute.selected === key?
-                            "Product-Information-Attributes-Attribute-AttributeSwatch-Option-Color-Selected":
-                            "Product-Information-Attributes-Attribute-AttributeSwatch-Option-Color"
+                          className={
+                            cartItemAttribute.selected === key
+                              ? "Product-Information-Attributes-Attribute-AttributeSwatch-Option-Color-Selected"
+                              : "Product-Information-Attributes-Attribute-AttributeSwatch-Option-Color"
                           }
                           style={{
                             backgroundColor: `${itemAttributeSelection.value}`,
@@ -80,11 +91,11 @@ class CartProduct extends React.Component {
                 );
               }
               return null;
-            
-          });
+            });
+          }
+          return null
         }
-      })
-      }
+        )}
       </div>
     ));
   }
@@ -103,14 +114,11 @@ class CartProduct extends React.Component {
           </div>
           <div className="Product-Information-Value">
             <p className="Product-Information-Value-Label">
-              {
-                this.props.item.prices[this.props.activeCurrency].currency
-                  .symbol
-              }
+              {this.props.item.prices[this.props.activeCurrency].currency.symbol}
               {this.props.item.prices[this.props.activeCurrency].amount}
             </p>
           </div>
-            {this.showAttributes()}
+          {this.showAttributes()}
         </div>
         <div className="Product-Quantity">
           <button
@@ -140,26 +148,29 @@ class CartProduct extends React.Component {
               );
             }}
           >
-            <img src={minusIcon} alt="minus" />
+            <img src={minusIcon} alt="minus icon" />
           </button>
         </div>
         <div className="Product-ImageArea">
           <img
             src={this.props.item.gallery[this.state.imageIndex]}
             className="Product-ImageArea-Image"
+            alt = "Product"
           ></img>
           <img
             className="Product-ImageArea-ArrowLeft"
             src={arrowLeft}
+            alt="ArrowLeft"
             onClick={() => {
-              this.changeImageIndex("-");
+              this.changeImage("-");
             }}
           />
           <img
             className="Product-ImageArea-ArrowRight"
             src={arrowRight}
+            alt="ArrowLeft"
             onClick={() => {
-              this.changeImageIndex("+");
+              this.changeImage("+");
             }}
           />
         </div>
@@ -168,6 +179,4 @@ class CartProduct extends React.Component {
   }
 }
 
-export default connect((state) => ({ cartItems: state.cart.cartItems }))(
-  CartProduct
-);
+export default connect()(CartProduct);

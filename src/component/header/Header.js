@@ -1,21 +1,21 @@
 import React from "react";
-import { graphql } from "react-apollo";
 
+import { graphql } from "react-apollo";
 import { connect } from "react-redux";
 import { withRouter } from "../../utils/withRouter";
 
 import * as CategoryActions from "../../store/actions/Category";
-import CategoryButton from "../CategoryButton";
-import Cart from "../../assets/icons/cart.svg";
+import { getHeaderData } from "../../graphql/Queries";
 import CurrencySwitcher from "../CurrencySwitcher";
 import Minicart from "../Minicart";
-import { getCategories, getCurrencies } from "../../graphql/Queries";
+import CategoryButton from "../CategoryButton";
 
-import "./Header.style.scss";
+import Cart from "../../assets/icons/cart.svg";
 import Logo from "../../assets/images/logo.svg";
 import ArrowDown from "../../assets/icons/arrow-down.svg";
 import ArrowUp from "../../assets/icons/arrow-up.svg";
 
+import "./Header.style.scss";
 
 class Header extends React.Component {
   constructor(props) {
@@ -27,11 +27,11 @@ class Header extends React.Component {
     };
   }
 
-  handleChangeActiveCategory(key, name) {
+  changeActiveCategory(key, name) {
     this.setState({ categorySelected: key });
     this.props.dispatch(CategoryActions.changeCategory(key, name));
-    if(this.props.location.pathname !== '/'){
-      this.props.navigate(`/`)
+    if (this.props.location.pathname !== "/") {
+      this.props.navigate(`/`);
     }
   }
 
@@ -47,7 +47,7 @@ class Header extends React.Component {
           active={this.state.categorySelected === key ? true : false}
           name={category.name}
           onClick={() => {
-            this.handleChangeActiveCategory(key, category.name);
+            this.changeActiveCategory(key, category.name);
           }}
         ></CategoryButton>
       );
@@ -58,9 +58,11 @@ class Header extends React.Component {
     this.setState({
       currentSwitcherSelected: !this.state.currentSwitcherSelected,
     });
+
     if (this.state.currentMinicartSelected)
       this.setState({ currentMinicartSelected: false });
   }
+
   showMinicart() {
     this.setState({
       currentMinicartSelected: !this.state.currentMinicartSelected,
@@ -74,14 +76,15 @@ class Header extends React.Component {
     if (data.loading) {
       return <div>LOADING...</div>;
     }
-    localStorage.setItem("FIRST_CATEGORY", data.categories[0].name)
-    // localStorage.setItem("FIRST_CURRENCY", data.currency[0])
-    console.log(data.currencies)
+
+    localStorage.setItem("FIRST_CATEGORY", data.categories[0].name);
+    localStorage.setItem("FIRST_CURRENCY", data.currencies[0].symbol);
+
     return (
       <div className="Header">
         <div className="Header-Categories">{this.displayCategories()}</div>
         <div className="Header-Logo">
-          <img className="Header-Logo-Image" src={Logo} alt="Logo image"></img>
+          <img className="Header-Logo-Image" src={Logo} alt="Logo"></img>
         </div>
 
         <div className="Header-Options">
@@ -131,7 +134,13 @@ class Header extends React.Component {
                 alt="Cart icon"
                 src={Cart}
               />
-              {this.props.cartItems.length>0?<div className="Header-Options-Cart-Button-QuantityIndicator"><p className="Header-Options-Cart-Button-QuantityIndicator-Text">{this.props.cartItems.length}</p></div>:null}
+              {this.props.cartItems.length > 0 ? (
+                <div className="Header-Options-Cart-Button-QuantityIndicator">
+                  <p className="Header-Options-Cart-Button-QuantityIndicator-Text">
+                    {this.props.cartItems.length}
+                  </p>
+                </div>
+              ) : null}
             </button>
             {this.state.currentMinicartSelected === true ? (
               <Minicart
@@ -151,4 +160,4 @@ export default connect((state) => ({
   category: state.category,
   currency: state.currency,
   cartItems: state.cart.cartItems,
-}))(graphql(getCategories)(withRouter(Header)));
+}))(graphql(getHeaderData)(withRouter(Header)));

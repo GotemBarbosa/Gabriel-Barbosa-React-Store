@@ -1,11 +1,11 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
-import  ApolloClient  from 'apollo-boost';
-import { InMemoryCache } from 'apollo-boost';
-import { ApolloProvider } from 'react-apollo';
+import React from "react";
+import ReactDOM from "react-dom";
+import ApolloClient from "apollo-boost";
+import { InMemoryCache } from "apollo-boost";
+import { ApolloProvider } from "react-apollo";
+import { BrowserRouter } from "react-router-dom";
 
-import App from './App';
-import { BrowserRouter } from 'react-router-dom';
+import App from "./App";
 
 const client = new ApolloClient({
   cache: new InMemoryCache(),
@@ -15,8 +15,8 @@ const client = new ApolloClient({
 ReactDOM.render(
   <BrowserRouter>
     <ApolloProvider client={client}>
-      <App/>
+      <App />
     </ApolloProvider>
   </BrowserRouter>,
-  document.getElementById('root')
+  document.getElementById("root")
 );

@@ -1,1 +1,1 @@
-export {default} from './CurrencySwitcher'
+export { default } from "./CurrencySwitcher";

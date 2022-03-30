@@ -1,136 +1,136 @@
 .ProductCard,
-.ProductCard-AddEnabled{
-    width: var(--cardWidth);
-    height: 400px;
-    padding: 10px;
-    margin-top: 45px;
-    transition: 0.4s;
-    cursor: pointer;
-    &-AddEnabled{
-        box-shadow: 0 0 15px rgba(0,0,0,0.15);
+.ProductCard-AddEnabled {
+  width: var(--cardWidth);
+  height: 400px;
+  padding: 10px;
+  margin-top: 45px;
+  transition: 0.4s;
+  cursor: pointer;
+  &-AddEnabled {
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.15);
+  }
+  &:hover {
+    box-shadow: 0px 0px 10px 5px rgba(0, 0, 0, 0.15);
+  }
+
+  &-ImageArea {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 100%;
+    height: calc(var(--cardWidth) - 65px);
+    overflow: hidden;
+    position: relative;
+
+    &-Image {
+      background-size: cover;
+      height: auto;
+      max-width: 100%;
+      user-select: none;
     }
-    &:hover{
-        box-shadow: 0px 0px 10px 5px rgba(0,0,0,0.15);
+
+    &-OutOfStock {
+      height: 100%;
+      width: 100%;
+      position: absolute;
+      background: #ffffff64;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+
+      &-Text {
+        font-family: "Raleway";
+        font-weight: 400;
+        font-size: 24px;
+        line-height: 160%;
+        color: #8d8f9a;
+      }
+    }
+  }
+
+  &-Data {
+    margin-top: 20px;
+    position: relative;
+
+    &-AddToCartButton,
+    &-AddToCartButton-OutOfStock {
+      height: 52px;
+      width: 52px;
+      border-radius: 100%;
+      border: none;
+      box-shadow: 0px 0px 9px 1px #b5b5b52e;
+      position: absolute;
+      right: 10px;
+      top: -45px;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      background-color: var(--active-color);
+      z-index: 2;
+      transition: 0.3s;
+      cursor: pointer;
+    }
+    &-AddToCartButton:hover {
+      box-shadow: 0px 0px 9px 3px #b5b5b565;
+      background-color: var(--active-hover-color);
+    }
+    &-AddToCartButton-OutOfStock:hover {
+      cursor: not-allowed;
     }
 
-    &-ImageArea{
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        width: 100%;
-        height: calc(var(--cardWidth) - 65px);
-        overflow: hidden;
-        position: relative;
-
-        &-Image{
-            background-size: cover;
-            height: auto;
-            max-width: 100%
-        }
-
-        &-OutOfStock{
-            height: 100%;
-            width: 100%;
-            position: absolute;
-            background: #ffffff64;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-
-            &-Text{
-                font-family: 'Raleway';
-                font-weight: 400;
-                font-size: 24px;
-                line-height: 160%;
-                color: #8D8F9A;
-            }
-        }
+    &-Name,
+    &-Name-OutOfStock {
+      font-family: "Raleway";
+      font-weight: 300;
+      font-size: 18px;
+      line-height: 160%;
+      text-decoration: none;
     }
-    
-    &-Data{
-        margin-top: 20px;
-        position: relative;
-
-        &-AddToCartButton,
-        &-AddToCartButton-OutOfStock{
-            height: 52px;
-            width: 52px;
-            border-radius: 100%;
-            border: none;
-            box-shadow: 0px 0px 9px 1px #b5b5b52e;
-            position: absolute;
-            right: 10px;
-            top: -45px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            background-color: var(--active-color);
-            z-index: 2;
-            transition: 0.3s;
-            cursor: pointer;
-        }
-        &-AddToCartButton:hover{
-                box-shadow: 0px 0px 9px 3px #b5b5b565;
-                background-color: var(--active-hover-color);
-        }
-        &-AddToCartButton-OutOfStock:hover{
-            cursor: not-allowed;
-        }
-
-        &-Name,
-        &-Name-OutOfStock{
-            font-family: 'Raleway';
-            font-weight: 300;
-            font-size: 18px;
-            line-height: 160%;
-            text-decoration: none;
-        }
-        &-Name{
-            color: var(--black);
-        }
-        &-Name-OutOfStock{
-            color: #8D8F9A;
-        }
-
-        &-Price{
-            font-family: 'Raleway';
-            font-weight: 500;
-            font-size: 18px;
-            line-height: 160%;
-            text-decoration: none;
-            color: var(--black);
-            text-decoration: none;
-        }
-
-        &-Price-OutOfStock{
-            font-family: 'Raleway';
-            font-weight: 500;
-            font-size: 18px;
-            line-height: 160%;
-            text-decoration: none;
-            color: #8D8F9A;
-            text-decoration: none;
-        }
-
-        &-Swatch{
-            width: 100%;
-            display: flex;
-            flex-direction: row;
-
-            &-Color,
-            &-Color-OutOfStock{
-                height: 20px;
-                width: 20px;
-                background-color: blue;
-                border: 0.5px solid var(--light-gray);
-                border-radius: 50%;
-                margin-right: 5px;
-
-                &-OutOfStock{
-                    opacity: 0.6;
-                }
-            }
-
-        }
+    &-Name {
+      color: var(--black);
     }
+    &-Name-OutOfStock {
+      color: #8d8f9a;
+    }
+
+    &-Price {
+      font-family: "Raleway";
+      font-weight: 500;
+      font-size: 18px;
+      line-height: 160%;
+      text-decoration: none;
+      color: var(--black);
+      text-decoration: none;
+    }
+
+    &-Price-OutOfStock {
+      font-family: "Raleway";
+      font-weight: 500;
+      font-size: 18px;
+      line-height: 160%;
+      text-decoration: none;
+      color: #8d8f9a;
+      text-decoration: none;
+    }
+
+    &-Swatch {
+      width: 100%;
+      display: flex;
+      flex-direction: row;
+
+      &-Color,
+      &-Color-OutOfStock {
+        height: 20px;
+        width: 20px;
+        background-color: blue;
+        border: 0.5px solid var(--light-gray);
+        border-radius: 50%;
+        margin-right: 5px;
+
+        &-OutOfStock {
+          opacity: 0.6;
+        }
+      }
+    }
+  }
 }

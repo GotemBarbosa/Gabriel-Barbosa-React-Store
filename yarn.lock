@@ -18,7 +18,7 @@
     "jsonpointer" "^5.0.0"
     "leven" "^3.1.0"
 
-"@apollo/client@^3.5.10":
+"@apollo/client@^3.5.10", "@apollo/client@latest":
   "integrity" "sha512-tL3iSpFe9Oldq7gYikZK1dcYxp1c01nlSwtsMz75382HcI6fvQXyFXUCJTTK3wgO2/ckaBvRGw7VqjFREdVoRw=="
   "resolved" "https://registry.npmjs.org/@apollo/client/-/client-3.5.10.tgz"
   "version" "3.5.10"
@@ -75,6 +75,13 @@
     "@wry/equality" "^0.1.9"
     "ts-invariant" "^0.4.4"
     "tslib" "^1.10.0"
+
+"@apollo/react-hooks@^4.0.0":
+  "integrity" "sha512-fCu0cbne3gbUl0QbA8X4L33iuuFVQbC5Jo2MIKRK8CyawR6PoxDpFdFA1kc6033ODZuZZ9Eo4RdeJFlFIIYcLA=="
+  "resolved" "https://registry.npmjs.org/@apollo/react-hooks/-/react-hooks-4.0.0.tgz"
+  "version" "4.0.0"
+  dependencies:
+    "@apollo/client" "latest"
 
 "@apollo/react-ssr@^3.1.5":
   "integrity" "sha512-wuLPkKlctNn3u8EU8rlECyktpOUCeekFfb0KhIKknpGY6Lza2Qu0bThx7D9MIbVEzhKadNNrzLcpk0Y8/5UuWg=="

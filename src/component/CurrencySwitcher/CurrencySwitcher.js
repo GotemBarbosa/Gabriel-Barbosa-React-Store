@@ -1,7 +1,6 @@
 import React from "react";
 
 import { graphql } from "react-apollo";
-
 import { connect } from "react-redux";
 
 import * as CurrencyActions from "../../store/actions/Currency";
@@ -10,15 +9,11 @@ import { getCurrencies } from "../../graphql/Queries";
 import "./CurrencySwitcher.style.scss";
 
 class CurrencySwitcher extends React.Component {
-  handleChangeActiveCurrency(key, symbol) {
+  changeActiveCurrency(key, symbol) {
     this.props.dispatch(CurrencyActions.changeCurrency(key, symbol));
   }
 
-  displayCurrencies() {
-    const data = this.props.data;
-    if (data.loading) {
-      return <div>Loading...</div>;
-    }
+  displayCurrencies(data) {
     return data.currencies.map((currency, key) => {
       return (
         <button
@@ -29,7 +24,7 @@ class CurrencySwitcher extends React.Component {
               : "CurrencySwitcher-Overlay-Button"
           }
           onClick={() => {
-            this.handleChangeActiveCurrency(key, currency.symbol);
+            this.changeActiveCurrency(key, currency.symbol);
           }}
         >
           {currency.symbol} {currency.label}
@@ -37,8 +32,12 @@ class CurrencySwitcher extends React.Component {
       );
     });
   }
-  render() {
 
+  render() {
+    const data = this.props.data;
+    if (data.loading) {
+      return <p>Loading...</p>;
+    }
     return (
       <div className="CurrencySwitcher">
         <div
@@ -51,7 +50,7 @@ class CurrencySwitcher extends React.Component {
               e.stopPropagation();
             }}
           >
-            {this.displayCurrencies()}
+            {this.displayCurrencies(data)}
           </div>
         </div>
       </div>

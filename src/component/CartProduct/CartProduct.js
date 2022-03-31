@@ -140,12 +140,16 @@ class CartProduct extends React.Component {
           <button
             className="Product-Quantity-MinusButton"
             onClick={() => {
-              this.props.dispatch(
-                CartActions.updateCartQuantity(
-                  this.props.index,
-                  this.props.cartItem.quantity - 1
-                )
-              );
+              if (this.props.cartItem.quantity === 1) {
+                this.props.dispatch(CartActions.deleteInCart(this.props.cartItem));
+              } else {
+                this.props.dispatch(
+                  CartActions.updateCartQuantity(
+                    this.props.index,
+                    this.props.cartItem.quantity - 1
+                  )
+                );
+              }
             }}
           >
             <img src={minusIcon} alt="minus icon" />
@@ -179,4 +183,6 @@ class CartProduct extends React.Component {
   }
 }
 
-export default connect()(CartProduct);
+export default connect(state=>({
+  cartItems: state.cart.cartItems,
+}))(CartProduct);

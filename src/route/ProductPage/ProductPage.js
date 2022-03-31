@@ -99,7 +99,7 @@ class ProductPage extends React.Component {
         return this.setState({
           notificationData: {
             title: "Error",
-            description: "Do not forget to choose all posible attributes ",
+            description: "Do not forget to choose all posible options ",
             color: "#d9534f",
             icon: errorIcon,
           },
@@ -115,7 +115,7 @@ class ProductPage extends React.Component {
             return this.setState({
               notificationData: {
                 title: "Error",
-                description: "Do not forget to choose all posible attributes",
+                description: "Do not forget to choose all posible options",
                 color: "#d9534f",
                 icon: errorIcon,
               },

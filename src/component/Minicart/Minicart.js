@@ -205,7 +205,7 @@ class Minicart extends React.Component {
             <div className="Minicart-Header">
               <p className="Minicart-Header-Identification">My Bag</p>
               <p className="Minicart-Header-CartItemsCount">
-                , {this.props.cartItems.length} items
+                , {this.props.cartItems.length} {this.props.cartItems.length === 1?"item":"items"}
               </p>
             </div>
 

@@ -1,14 +1,11 @@
-.ProductCard,
-.ProductCard-AddEnabled {
+.ProductCard{
   width: var(--cardWidth);
   height: 400px;
   padding: 10px;
   margin-top: 45px;
   transition: 0.4s;
   cursor: pointer;
-  &-AddEnabled {
-    box-shadow: 0 0 15px rgba(0, 0, 0, 0.15);
-  }
+
   &:hover {
     box-shadow: 0px 0px 10px 5px rgba(0, 0, 0, 0.15);
   }
@@ -24,8 +21,8 @@
 
     &-Image {
       background-size: cover;
-      height: auto;
-      max-width: 100%;
+      max-height: 100%;
+      width: auto;
       user-select: none;
     }
 

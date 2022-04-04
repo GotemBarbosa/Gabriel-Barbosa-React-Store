@@ -3,8 +3,8 @@ import React from "react";
 import { connect } from "react-redux";
 
 import * as CartActions from "../../store/actions/Cart";
-import arrowLeft from "../../assets/icons/arrow-left-white.svg";
-import arrowRight from "../../assets/icons/arrow-right-white.svg";
+import arrowLeft from "../../assets/icons/arrow-left.svg";
+import arrowRight from "../../assets/icons/arrow-right.svg";
 import minusIcon from "../../assets/icons/minus.svg";
 import plusIcon from "../../assets/icons/plus.svg";
 
@@ -37,6 +37,9 @@ class CartProduct extends React.Component {
   showAttributes() {
     return this.props.cartItem.attributes.map((cartItemAttribute, index) => (
       <div className="Product-Information-Attributes" key={index}>
+        <p className="Product-Information-Attributes-Name">
+          {cartItemAttribute.id}:
+        </p>
         {this.props.item.attributes.map((itemAttribute) => {
           if (cartItemAttribute.id === itemAttribute.id) {
             return itemAttribute.items.map((itemAttributeSelection, key) => {
@@ -65,7 +68,10 @@ class CartProduct extends React.Component {
               }
               if (cartItemAttribute.type === "swatch") {
                 return (
-                  <div className="Product-Information-Attributes-Attribute">
+                  <div
+                    className="Product-Information-Attributes-Attribute"
+                    key={itemAttributeSelection.id}
+                  >
                     <div className="Product-Information-Attributes-Attribute-AttributeSwatch">
                       <div
                         className="Product-Information-Attributes-Attribute-AttributeSwatch-Option"
@@ -93,9 +99,8 @@ class CartProduct extends React.Component {
               return null;
             });
           }
-          return null
-        }
-        )}
+          return null;
+        })}
       </div>
     ));
   }
@@ -114,7 +119,10 @@ class CartProduct extends React.Component {
           </div>
           <div className="Product-Information-Value">
             <p className="Product-Information-Value-Label">
-              {this.props.item.prices[this.props.activeCurrency].currency.symbol}
+              {
+                this.props.item.prices[this.props.activeCurrency].currency
+                  .symbol
+              }
               {this.props.item.prices[this.props.activeCurrency].amount}
             </p>
           </div>
@@ -141,7 +149,9 @@ class CartProduct extends React.Component {
             className="Product-Quantity-MinusButton"
             onClick={() => {
               if (this.props.cartItem.quantity === 1) {
-                this.props.dispatch(CartActions.deleteInCart(this.props.cartItem));
+                this.props.dispatch(
+                  CartActions.deleteInCart(this.props.cartItem)
+                );
               } else {
                 this.props.dispatch(
                   CartActions.updateCartQuantity(
@@ -159,7 +169,7 @@ class CartProduct extends React.Component {
           <img
             src={this.props.item.gallery[this.state.imageIndex]}
             className="Product-ImageArea-Image"
-            alt = "Product"
+            alt="Product"
           ></img>
           <img
             className="Product-ImageArea-ArrowLeft"
@@ -183,6 +193,6 @@ class CartProduct extends React.Component {
   }
 }
 
-export default connect(state=>({
+export default connect((state) => ({
   cartItems: state.cart.cartItems,
 }))(CartProduct);

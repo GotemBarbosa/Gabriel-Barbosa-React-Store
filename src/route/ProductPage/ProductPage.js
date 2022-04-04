@@ -1,6 +1,7 @@
 import React from "react";
 import { graphql } from "react-apollo";
 import { connect } from "react-redux";
+import parse from "html-react-parser";
 
 import Notification from "../../component/Notification";
 import * as CartActions from "../../store/actions/Cart";
@@ -122,7 +123,7 @@ class ProductPage extends React.Component {
               showNotification: true,
             });
           }
-          return null
+          return null;
         });
         if (error === false) {
           this.props.dispatch(
@@ -210,10 +211,7 @@ class ProductPage extends React.Component {
             )}
           </div>
           <div className="ProductPage-ProductInformation-Description">
-            <p
-              className="ProductPage-ProductInformation-Description-Text"
-              dangerouslySetInnerHTML={{ __html: data.product.description }}
-            />
+            {parse(data.product.description)}
           </div>
         </div>
       </div>

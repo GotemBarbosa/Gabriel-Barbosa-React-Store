@@ -17,11 +17,13 @@ class ProductCard extends React.Component {
     this.state = {
       notificationData: {},
       showNotification: false,
+      showAddToCart: false,
     };
   }
 
   closeNotification(e) {
     this.setState({ showNotification: false });
+    this.setState({ showAddToCart: false });
     e.stopPropagation();
   }
 
@@ -39,13 +41,36 @@ class ProductCard extends React.Component {
       },
       showNotification: true,
     });
-    this.props.dispatch(
-      CartActions.addToCart({
-        productId: this.props.data.id,
-        attributes: [],
-        quantity: 1,
-      })
-    );
+
+    if (this.props.data.attributes.length === 0) {
+      this.props.dispatch(
+        CartActions.addToCart({
+          productId: this.props.data.id,
+          attributes: [],
+          quantity: 1,
+        })
+      );
+    } else {
+      let attributesSelection = [];
+
+      this.props.data.attributes.map((attribute, key) => {
+        const firstOption = 0;
+        const newAttribute = {
+          id: attribute.id,
+          type: attribute.type,
+          selected: firstOption,
+        };
+        return (attributesSelection = [...attributesSelection, newAttribute]);
+      });
+
+      this.props.dispatch(
+        CartActions.addToCart({
+          productId: this.props.data.id,
+          attributes: attributesSelection,
+          quantity: 1,
+        })
+      );
+    }
     e.stopPropagation();
   }
 
@@ -72,14 +97,16 @@ class ProductCard extends React.Component {
   render() {
     return (
       <div
-        className={
-          this.props.data.attributes.length === 0
-            ? "ProductCard-AddEnabled"
-            : "ProductCard"
-        }
+        className={"ProductCard"}
         onClick={(e) => {
           e.stopPropagation();
           this.changePage();
+        }}
+        onMouseEnter={() => {
+          this.setState({ showAddToCart: true });
+        }}
+        onMouseLeave={() => {
+          this.setState({ showAddToCart: false });
         }}
       >
         {this.state.showNotification ? (
@@ -105,7 +132,7 @@ class ProductCard extends React.Component {
           )}
         </div>
         <div className="ProductCard-Data">
-          {this.props.data.attributes.length === 0 ? (
+          {this.state.showAddToCart ? (
             this.props.data.inStock === true ? (
               <button
                 className="ProductCard-Data-AddToCartButton"

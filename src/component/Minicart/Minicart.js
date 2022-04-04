@@ -20,62 +20,64 @@ class Minicart extends React.Component {
         className="Minicart-Products-Product-Information-Attributes"
         key={index}
       >
-        {item.attributes.map((itemAttribute) => {
-          if (cartItemAttribute.id === itemAttribute.id) {
-            return itemAttribute.items.map((itemAttributeSelection, key) => {
-              if (cartItemAttribute.type === "text") {
-                return (
-                  <div
-                    className="Minicart-Products-Product-Information-Attributes-Attribute"
-                    key={itemAttributeSelection.id}
-                  >
-                    <div className="Minicart-Products-Product-Information-Attributes-Attribute-AttributeText">
-                      <button
-                        className={
-                          cartItemAttribute.selected === key
-                            ? "Minicart-Products-Product-Information-Attributes-Attribute-AttributeText-Option-Selected"
-                            : "Minicart-Products-Product-Information-Attributes-Attribute-AttributeText-Option"
-                        }
-                      >
-                        <p className="Minicart-Products-Product-Information-Attributes-Attribute-AttributeText-Option-Text">
-                          {itemAttributeSelection.value}
-                        </p>
-                      </button>
-                    </div>
-                  </div>
-                );
-              }
-              if (cartItemAttribute.type === "swatch") {
-                return (
-                  <div
-                    className="Minicart-Products-Product-Information-Attributes-Attribute"
-                    key={key}
-                  >
-                    <div className="Minicart-Products-Product-Information-Attributes-Attribute-AttributeSwatch">
-                      <div className="Minicart-Products-Product-Information-Attributes-Attribute-AttributeSwatch-Option">
+        <p className="Minicart-Products-Product-Information-Attributes-Name">
+          {cartItemAttribute.id}:
+        </p>
+        {item.attributes.map((itemAttribute) =>
+          cartItemAttribute.id === itemAttribute.id
+            ? itemAttribute.items.map((itemAttributeSelection, key) => {
+                if (cartItemAttribute.type === "text") {
+                  return (
+                    <div
+                      className="Minicart-Products-Product-Information-Attributes-Attribute"
+                      key={itemAttributeSelection.id}
+                    >
+                      <div className="Minicart-Products-Product-Information-Attributes-Attribute-AttributeText">
                         <button
                           className={
                             cartItemAttribute.selected === key
-                              ? "Minicart-Products-Product-Information-Attributes-Attribute-AttributeSwatch-Option-Color-Selected"
-                              : "Minicart-Products-Product-Information-Attributes-Attribute-AttributeSwatch-Option-Color"
+                              ? "Minicart-Products-Product-Information-Attributes-Attribute-AttributeText-Option-Selected"
+                              : "Minicart-Products-Product-Information-Attributes-Attribute-AttributeText-Option"
                           }
-                          style={{
-                            backgroundColor: `${itemAttributeSelection.value}`,
-                          }}
-                        />
-                        <p className="Minicart-Products-Product-Information-Attributes-Attribute-AttributeSwatch-Option-Text">
-                          {itemAttributeSelection.displayValue}
-                        </p>
+                        >
+                          <p className="Minicart-Products-Product-Information-Attributes-Attribute-AttributeText-Option-Text">
+                            {itemAttributeSelection.value}
+                          </p>
+                        </button>
                       </div>
                     </div>
-                  </div>
-                );
-              }
-              return null;
-            });
-          }
-          return null
-        })}
+                  );
+                }
+                if (cartItemAttribute.type === "swatch") {
+                  return (
+                    <div
+                      className="Minicart-Products-Product-Information-Attributes-Attribute"
+                      key={key}
+                    >
+                      <div className="Minicart-Products-Product-Information-Attributes-Attribute-AttributeSwatch">
+                        <div className="Minicart-Products-Product-Information-Attributes-Attribute-AttributeSwatch-Option">
+                          <button
+                            className={
+                              cartItemAttribute.selected === key
+                                ? "Minicart-Products-Product-Information-Attributes-Attribute-AttributeSwatch-Option-Color-Selected"
+                                : "Minicart-Products-Product-Information-Attributes-Attribute-AttributeSwatch-Option-Color"
+                            }
+                            style={{
+                              backgroundColor: `${itemAttributeSelection.value}`,
+                            }}
+                          />
+                          <p className="Minicart-Products-Product-Information-Attributes-Attribute-AttributeSwatch-Option-Text">
+                            {itemAttributeSelection.displayValue}
+                          </p>
+                        </div>
+                      </div>
+                    </div>
+                  );
+                }
+                return null;
+              })
+            : null
+        )}
       </div>
     ));
   }
@@ -174,15 +176,15 @@ class Minicart extends React.Component {
               cartItem.quantity);
           }
         }
-        return null
+        return null;
       })
     );
     return parseFloat(price).toFixed(2);
   }
 
-  handleCheckOut(){
+  handleCheckOut() {
     //simple action when checkout is clicked
-    return this.props.dispatch(CartActions.clearCart())
+    return this.props.dispatch(CartActions.clearCart());
   }
   render() {
     const data = this.props.data;
@@ -205,7 +207,8 @@ class Minicart extends React.Component {
             <div className="Minicart-Header">
               <p className="Minicart-Header-Identification">My Bag</p>
               <p className="Minicart-Header-CartItemsCount">
-                , {this.props.cartItems.length} {this.props.cartItems.length === 1?"item":"items"}
+                , {this.props.cartItems.length}{" "}
+                {this.props.cartItems.length === 1 ? "item" : "items"}
               </p>
             </div>
 
@@ -248,7 +251,12 @@ class Minicart extends React.Component {
                   >
                     VIEW BAG
                   </button>
-                  <button className="Minicart-Functions-CheckOutButton" onClick={()=>{this.handleCheckOut()}}>
+                  <button
+                    className="Minicart-Functions-CheckOutButton"
+                    onClick={() => {
+                      this.handleCheckOut();
+                    }}
+                  >
                     CHECK OUT
                   </button>
                 </div>

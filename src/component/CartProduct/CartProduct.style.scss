@@ -40,8 +40,16 @@
       display: flex;
       flex-direction: row;
 
+      &-Name{
+        position: absolute;
+        font-family: 'Raleway';
+        font-size: 16px;
+        color: var(--gray);
+        margin-top: 10px;
+      }
+
       &-Attribute {
-        margin-top: 20px;
+        margin-top: 30px;
 
         &-AttributeText {
           margin-top: 5px;
@@ -151,7 +159,7 @@
 
     &-ArrowLeft {
       position: absolute;
-      height: 25px;
+      height: 35px;
       margin: 5px;
       left: 0;
       user-select: none;
@@ -160,7 +168,7 @@
 
     &-ArrowRight {
       position: absolute;
-      height: 25px;
+      height: 35px;
       margin: 5px;
       right: 0;
       user-select: none;

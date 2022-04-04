@@ -25,6 +25,7 @@ class CurrencySwitcher extends React.Component {
           }
           onClick={() => {
             this.changeActiveCurrency(key, currency.symbol);
+            this.props.onOutClick();
           }}
         >
           {currency.symbol} {currency.label}

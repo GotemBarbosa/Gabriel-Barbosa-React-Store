@@ -13,9 +13,12 @@ $marginTop-Items: 30px;
     display: flex;
     width: 65%;
     user-select: none;
+    overflow: hidden;
 
     &-ShowcaseOptions {
       width: 30%;
+      max-height: calc(95vh - var(--header-height));
+      overflow-y: auto;
       display: flex;
       flex-direction: column;
       align-items: center;
@@ -133,13 +136,12 @@ $marginTop-Items: 30px;
     &-Description {
       margin-top: $marginTop-Items;
 
-      &-Text {
-        font-family: "Roboto";
-        font-weight: 400;
-        font-size: 16px;
-        line-height: 160%;
-        color: var(--black);
-      }
+      font-family: "Roboto";
+      font-weight: 400;
+      font-size: 16px;
+      line-height: 160%;
+      color: var(--black);
+
       *{
         margin-bottom:15px
       }

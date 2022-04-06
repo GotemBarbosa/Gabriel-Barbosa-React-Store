@@ -14,7 +14,7 @@ $itemsMargin-to-bottom: 25px;
 
     &-Overlay {
       position: absolute;
-      left: calc(100vw - 33%);
+      right: calc(100vw - 95%);
       width: 355px;
       background-color: var(--white);
       z-index: 3;

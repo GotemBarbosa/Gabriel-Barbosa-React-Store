@@ -28,6 +28,9 @@ class Header extends React.Component {
   }
 
   changeActiveCategory(key, name) {
+    if(this.state.currentSwitcherSelected) this.setState({currentSwitcherSelected: false})
+    if(this.state.currentMinicartSelected) this.setState({currentMinicartSelected: false})
+
     this.setState({ categorySelected: key });
     this.props.dispatch(CategoryActions.changeCategory(key, name));
     if (this.props.location.pathname !== "/") {

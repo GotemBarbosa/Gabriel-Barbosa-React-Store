@@ -20,6 +20,7 @@ export default function cart(state = INITIAL_STATE, action) {
                     sameSelectedAttributeIndex = index
                 }
             }
+            return null
         })
 
         if(sameSelectedAttributes){
